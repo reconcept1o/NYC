@@ -21,7 +21,7 @@ const Footer = () => {
   const footerStyle = {
     backgroundColor: "#1C2526",
     color: "#B0B0B0",
-    padding: "3rem 0 1.5rem",
+    padding: "4rem 0 2rem", // Üst boşluk artırıldı, alt boşluk ayarlandı.
     fontFamily: "'Poppins', sans-serif",
     fontSize: "0.95rem",
   };
@@ -43,13 +43,6 @@ const Footer = () => {
     marginTop: "0.5rem",
   };
 
-  const contentWrapperStyle = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    textAlign: "center",
-  };
-
   const contactInfoStyle = {
     display: "flex",
     flexDirection: "column",
@@ -57,6 +50,8 @@ const Footer = () => {
     color: "#D1D1D1",
     fontFamily: "'Lato', sans-serif",
     fontSize: "1rem",
+    width: "100%", // Sütunun tamamını kaplamasını sağlar
+    maxWidth: "350px", // Çok genişlemesini engeller
   };
 
   const contactItemStyle = {
@@ -64,18 +59,19 @@ const Footer = () => {
     alignItems: "center",
     textDecoration: "none",
     color: "inherit",
-    transition: "color 0.3s ease",
+    textAlign: "left", // Metinlerin sola hizalanmasını sağlar
   };
 
   const iconStyle = {
     color: "#1E8449",
     marginRight: "0.75rem",
     fontSize: "1.2rem",
+    flexShrink: 0, // İkonların küçülmesini engeller
   };
 
   const footerBottomStyle = {
-    paddingTop: "1.5rem",
-    marginTop: "2.5rem",
+    paddingTop: "2rem",
+    marginTop: "3rem", // Üst kısımla arayı açar
     borderTop: "1px solid #2D3A3B",
     fontSize: "0.8rem",
     color: "#777777",
@@ -87,16 +83,16 @@ const Footer = () => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { duration: 0.8, ease: "easeOut", staggerChildren: 0.1 },
+      transition: { duration: 0.8, ease: "easeOut", staggerChildren: 0.15 },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 15 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { duration: 0.6, ease: "easeOut" },
     },
   };
 
@@ -107,17 +103,21 @@ const Footer = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
-      className="py-3"
     >
       <Container>
-        <Row className="g-4 g-lg-5 align-items-center justify-content-center text-center text-lg-center">
+        {/* NEDEN DEĞİŞTİ: `gy-5` class'ı, mobil görünümde sütunlar alt alta geldiğinde aralarına 
+            dikey boşluk ekler. `mb-4` gibi manuel marginlere olan ihtiyacı ortadan kaldırır. 
+            `text-lg-start` ise büyük ekranlarda içeriği sola hizalayarak daha düzenli bir görünüm sağlar. */}
+        <Row className="gy-5 justify-content-between text-center text-lg-start">
           {/* SÜTUN 1: MARKA KİMLİĞİ */}
-          <Col xs={12} lg={6} className="mb-4 mb-lg-0">
-            <motion.div variants={itemVariants} style={contentWrapperStyle}>
-              <Link
-                to="/"
-                style={{ ...brandNameStyle, textDecoration: "none" }}
-              >
+          <Col xs={12} lg={5}>
+            {/* NEDEN DEĞİŞTİ: `align-items-lg-start` class'ı, büyük ekranlarda bu bölümün içeriğini 
+                sütunun soluna hizalar, mobil ve tablette ortada kalır. */}
+            <motion.div
+              variants={itemVariants}
+              className="d-flex flex-column align-items-center align-items-lg-start"
+            >
+              <Link to="/" style={brandNameStyle}>
                 Shine Beauty NYC
               </Link>
               <p style={ownerNameStyle}>Mr & Mrs Sen</p>
@@ -125,18 +125,22 @@ const Footer = () => {
           </Col>
 
           {/* SÜTUN 2: İLETİŞİM BİLGİLERİ */}
-          <Col xs={12} lg={6} className="mb-4 mb-lg-0">
-            <motion.div variants={itemVariants} style={contentWrapperStyle}>
+          <Col xs={12} lg={6}>
+            <motion.div
+              variants={itemVariants}
+              className="d-flex flex-column align-items-center align-items-lg-start"
+            >
               <div style={contactInfoStyle}>
-                <a
+                {/* NEDEN DEĞİŞTİ: `whileHover` animasyonunun çalışması için `<a>` yerine `motion.a` kullanılmalıdır. */}
+                <motion.a
                   href={`tel:${phoneNumber.replace(/\D/g, "")}`}
                   style={contactItemStyle}
                   whileHover={{ color: "#FFFFFF" }}
                 >
                   <FaPhoneAlt style={iconStyle} />
                   <span>{phoneNumber}</span>
-                </a>
-                <a
+                </motion.a>
+                <motion.a
                   href={googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -145,16 +149,16 @@ const Footer = () => {
                 >
                   <FaMapMarkerAlt style={iconStyle} />
                   <span>{address}</span>
-                </a>
-                <a
+                </motion.a>
+                <motion.a
                   href={`mailto:${emailAddress}`}
                   style={contactItemStyle}
                   whileHover={{ color: "#FFFFFF" }}
                 >
                   <FaEnvelope style={iconStyle} />
                   <span>{emailAddress}</span>
-                </a>
-                <a
+                </motion.a>
+                <motion.a
                   href={instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -163,7 +167,7 @@ const Footer = () => {
                 >
                   <FaInstagram style={iconStyle} />
                   <span>shine.beauty.nyc</span>
-                </a>
+                </motion.a>
               </div>
             </motion.div>
           </Col>
@@ -172,28 +176,31 @@ const Footer = () => {
         {/* EN ALT BÖLÜM */}
         <Row>
           <Col>
-            <div style={footerBottomStyle}>
+            <motion.div style={footerBottomStyle} variants={itemVariants}>
+              {/* NEDEN DEĞİŞTİ: `flex-md-row` ile orta ve büyük ekranlarda yan yana, 
+                  mobil ekranlarda `flex-column` (varsayılan) ile alt alta gelir. 
+                  Araya eklenen `span`, sadece yan yana olduklarında görünür bir ayraç ekler. */}
               <div className="d-flex flex-column flex-md-row justify-content-center align-items-center">
                 <span>
                   © {new Date().getFullYear()} Shine Beauty NYC. All Rights
                   Reserved.
                 </span>
+                <span className="d-none d-md-inline mx-3">|</span>
                 <motion.a
                   href="https://www.linkedin.com/in/s%C3%BCleyman-%C3%BCnver-9b3950245/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-2 mt-md-0"
-                  style={{
-                    color: "#777777",
-                    textDecoration: "none",
-                    transition: "color 0.3s ease",
+                  className="mt-2 mt-md-0" // Mobil için üst boşluk, diğerlerinde sıfır
+                  style={{ color: "#777777", textDecoration: "none" }}
+                  whileHover={{
+                    color: "#FFFFFF",
+                    transition: { duration: 0.3 },
                   }}
-                  whileHover={{ color: "#A9A9A9" }}
                 >
                   Made by reconcept
                 </motion.a>
               </div>
-            </div>
+            </motion.div>
           </Col>
         </Row>
       </Container>
