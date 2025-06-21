@@ -172,13 +172,13 @@ const Footer = () => {
         <Row>
           <Col>
             <motion.div style={footerBottomStyle} variants={itemVariants}>
-              {/* --- DEĞİŞİKLİK BURADA --- */}
+              {/* --- DEĞİŞİKLİK BURADA BAŞLIYOR --- */}
               <div className="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-2">
                 <span>
                   © {new Date().getFullYear()} Shine Beauty NYC. All Rights
                   Reserved.
                 </span>
-                {/* --- VE BURADA --- */}
+                {/* Bu ayırıcı | mobilde gizlenir, büyük ekranda görünür */}
                 <span className="d-none d-sm-inline">|</span>
                 <motion.a
                   href="https://www.linkedin.com/in/s%C3%BCleyman-%C3%BCnver-9b3950245/"
@@ -190,9 +190,10 @@ const Footer = () => {
                     transition: { duration: 0.3 },
                   }}
                 >
-                  Made by reconcept
+                  Made by ReconceptX
                 </motion.a>
               </div>
+              {/* --- DEĞİŞİKLİK BURADA BİTİYOR --- */}
             </motion.div>
           </Col>
         </Row>
