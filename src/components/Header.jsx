@@ -93,9 +93,9 @@ const Header = () => {
   };
 
   const brandTextStyle = {
-    color: "#1E8449",
-    fontSize: isMobile ? "1.4rem" : "2.2rem",
-    fontWeight: 600,
+    color: "#5A7504",
+    fontSize: isMobile ? "1.6rem" : "2.2rem",
+    fontWeight: 900,
     display: "inline-block",
   };
 

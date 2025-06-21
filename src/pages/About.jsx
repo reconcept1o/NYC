@@ -47,7 +47,7 @@ const About = () => {
     fontFamily: "'Cormorant Garamond', serif",
     fontSize: "clamp(2.5rem, 6vw, 4rem)",
     fontWeight: 700,
-    color: "#1E8449",
+    color: "#5A7504",
     lineHeight: 1.1,
     textAlign: "center",
   };

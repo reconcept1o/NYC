@@ -21,9 +21,10 @@ const Footer = () => {
   const footerStyle = {
     backgroundColor: "#1C2526",
     color: "#B0B0B0",
-    padding: "4rem 0 2rem", // Üst boşluk artırıldı, alt boşluk ayarlandı.
+    padding: "4rem 0 2rem",
     fontFamily: "'Poppins', sans-serif",
     fontSize: "0.95rem",
+    overflowX: "hidden", // Animasyon taşmalarını engellemek için eklendi
   };
 
   const brandNameStyle = {
@@ -50,8 +51,8 @@ const Footer = () => {
     color: "#D1D1D1",
     fontFamily: "'Lato', sans-serif",
     fontSize: "1rem",
-    width: "100%", // Sütunun tamamını kaplamasını sağlar
-    maxWidth: "350px", // Çok genişlemesini engeller
+    width: "100%",
+    maxWidth: "350px",
   };
 
   const contactItemStyle = {
@@ -59,19 +60,20 @@ const Footer = () => {
     alignItems: "center",
     textDecoration: "none",
     color: "inherit",
-    textAlign: "left", // Metinlerin sola hizalanmasını sağlar
+    textAlign: "left",
   };
 
   const iconStyle = {
     color: "#1E8449",
     marginRight: "0.75rem",
     fontSize: "1.2rem",
-    flexShrink: 0, // İkonların küçülmesini engeller
+    flexShrink: 0,
   };
 
   const footerBottomStyle = {
     paddingTop: "2rem",
-    marginTop: "3rem", // Üst kısımla arayı açar
+    // marginTop: "3rem", // <-- SORUNA YOL AÇAN BU SATIRI KALDIRDIK VEYA AZALTTIK.
+    marginTop: "2rem", // gy-5 ile birleşip çok fazla boşluk yaratmaması için azalttık.
     borderTop: "1px solid #2D3A3B",
     fontSize: "0.8rem",
     color: "#777777",
@@ -105,14 +107,9 @@ const Footer = () => {
       viewport={{ once: true, amount: 0.2 }}
     >
       <Container>
-        {/* NEDEN DEĞİŞTİ: `gy-5` class'ı, mobil görünümde sütunlar alt alta geldiğinde aralarına 
-            dikey boşluk ekler. `mb-4` gibi manuel marginlere olan ihtiyacı ortadan kaldırır. 
-            `text-lg-start` ise büyük ekranlarda içeriği sola hizalayarak daha düzenli bir görünüm sağlar. */}
         <Row className="gy-5 justify-content-between text-center text-lg-start">
           {/* SÜTUN 1: MARKA KİMLİĞİ */}
           <Col xs={12} lg={5}>
-            {/* NEDEN DEĞİŞTİ: `align-items-lg-start` class'ı, büyük ekranlarda bu bölümün içeriğini 
-                sütunun soluna hizalar, mobil ve tablette ortada kalır. */}
             <motion.div
               variants={itemVariants}
               className="d-flex flex-column align-items-center align-items-lg-start"
@@ -120,7 +117,7 @@ const Footer = () => {
               <Link to="/" style={brandNameStyle}>
                 Shine Beauty NYC
               </Link>
-              <p style={ownerNameStyle}>Mr & Mrs Sen</p>
+              <p style={ownerNameStyle}>Mr. & Mrs. Sen</p>
             </motion.div>
           </Col>
 
@@ -131,7 +128,6 @@ const Footer = () => {
               className="d-flex flex-column align-items-center align-items-lg-start"
             >
               <div style={contactInfoStyle}>
-                {/* NEDEN DEĞİŞTİ: `whileHover` animasyonunun çalışması için `<a>` yerine `motion.a` kullanılmalıdır. */}
                 <motion.a
                   href={`tel:${phoneNumber.replace(/\D/g, "")}`}
                   style={contactItemStyle}
@@ -177,21 +173,21 @@ const Footer = () => {
         <Row>
           <Col>
             <motion.div style={footerBottomStyle} variants={itemVariants}>
-              {/* NEDEN DEĞİŞTİ: `flex-md-row` ile orta ve büyük ekranlarda yan yana, 
-                  mobil ekranlarda `flex-column` (varsayılan) ile alt alta gelir. 
-                  Araya eklenen `span`, sadece yan yana olduklarında görünür bir ayraç ekler. */}
-              <div className="d-flex flex-column flex-md-row justify-content-center align-items-center">
+              {/* --- İYİLEŞTİRME --- */}
+              {/* 'gap-2' sınıfı, flex yönü dikeyken (mobil) veya yatayken (desktop) 
+                  elemanlar arasına otomatik olarak boşluk bırakır. Bu, `mt-2 mt-md-0` gibi 
+                  koşullu margin sınıflarını kullanmaktan daha temiz bir yöntemdir. */}
+              <div className="d-flex flex-column flex-md-row justify-content-center align-items-center gap-2">
                 <span>
                   © {new Date().getFullYear()} Shine Beauty NYC. All Rights
                   Reserved.
                 </span>
-                <span className="d-none d-md-inline mx-3">|</span>
+                <span className="d-none d-md-inline">|</span>
                 <motion.a
                   href="https://www.linkedin.com/in/s%C3%BCleyman-%C3%BCnver-9b3950245/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-2 mt-md-0" // Mobil için üst boşluk, diğerlerinde sıfır
-                  style={{ color: "#777777", textDecoration: "none" }}
+                  style={{ color: "inherit", textDecoration: "none" }}
                   whileHover={{
                     color: "#FFFFFF",
                     transition: { duration: 0.3 },
