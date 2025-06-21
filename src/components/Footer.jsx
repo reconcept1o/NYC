@@ -1,13 +1,13 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   FaMapMarkerAlt,
   FaInstagram,
   FaPhoneAlt,
   FaEnvelope,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 // --- VERİLER ---
 const phoneNumber = "(347) 978-5053";
@@ -21,9 +21,10 @@ const Footer = () => {
   const footerStyle = {
     backgroundColor: "#1C2526",
     color: "#B0B0B0",
-    padding: "3rem 0 1.5rem",
+    padding: "4rem 0 2rem",
     fontFamily: "'Poppins', sans-serif",
     fontSize: "0.95rem",
+    overflowX: "hidden",
   };
 
   const brandNameStyle = {
@@ -43,13 +44,6 @@ const Footer = () => {
     marginTop: "0.5rem",
   };
 
-  const contentWrapperStyle = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    textAlign: "center",
-  };
-
   const contactInfoStyle = {
     display: "flex",
     flexDirection: "column",
@@ -57,6 +51,8 @@ const Footer = () => {
     color: "#D1D1D1",
     fontFamily: "'Lato', sans-serif",
     fontSize: "1rem",
+    width: "100%",
+    maxWidth: "350px",
   };
 
   const contactItemStyle = {
@@ -64,18 +60,19 @@ const Footer = () => {
     alignItems: "center",
     textDecoration: "none",
     color: "inherit",
-    transition: "color 0.3s ease",
+    textAlign: "left",
   };
 
   const iconStyle = {
     color: "#1E8449",
     marginRight: "0.75rem",
     fontSize: "1.2rem",
+    flexShrink: 0,
   };
 
   const footerBottomStyle = {
-    paddingTop: "1.5rem",
-    marginTop: "2.5rem",
+    paddingTop: "2rem",
+    marginTop: "2rem",
     borderTop: "1px solid #2D3A3B",
     fontSize: "0.8rem",
     color: "#777777",
@@ -87,16 +84,16 @@ const Footer = () => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { duration: 0.8, ease: "easeOut", staggerChildren: 0.1 },
+      transition: { duration: 0.8, ease: "easeOut", staggerChildren: 0.15 },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 15 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { duration: 0.6, ease: "easeOut" },
     },
   };
 
@@ -107,20 +104,19 @@ const Footer = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
-      className="py-3"
     >
       <Container>
-        <Row className="g-4 g-lg-5 align-items-center justify-content-center text-center text-lg-center">
+        <Row className="gy-5 justify-content-between text-center text-lg-start">
           {/* SÜTUN 1: MARKA KİMLİĞİ */}
-          <Col xs={12} lg={6} className="mb-4 mb-lg-0">
-            <motion.div variants={itemVariants} style={contentWrapperStyle}>
-              <Link
-                to="/"
-                style={{ ...brandNameStyle, textDecoration: "none" }}
-              >
+          <Col xs={12} lg={5}>
+            <motion.div
+              variants={itemVariants}
+              className="d-flex flex-column align-items-center align-items-lg-start"
+            >
+              <Link to="/" style={brandNameStyle}>
                 Shine Beauty NYC
               </Link>
-              <p style={ownerNameStyle}>Mr & Mrs Sen</p>
+              <p style={ownerNameStyle}>Mr. & Mrs. Sen</p>
             </motion.div>
           </Col>
 
@@ -176,6 +172,7 @@ const Footer = () => {
         <Row>
           <Col>
             <motion.div style={footerBottomStyle} variants={itemVariants}>
+              {/* --- DEĞİŞİKLİK BURADA BAŞLIYOR --- */}
               <div className="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-2">
                 <span>
                   © {new Date().getFullYear()} Shine Beauty NYC. All Rights
@@ -192,11 +189,11 @@ const Footer = () => {
                     color: "#FFFFFF",
                     transition: { duration: 0.3 },
                   }}
-                  className="d-block d-sm-inline" // Mobil cihazlarda block, büyük ekranlarda inline
                 >
                   Made by ReconceptX
                 </motion.a>
               </div>
+              {/* --- DEĞİŞİKLİK BURADA BİTİYOR --- */}
             </motion.div>
           </Col>
         </Row>
