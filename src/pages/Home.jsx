@@ -100,7 +100,7 @@ const Home = () => {
     justifyContent: "center",
     padding: "5rem 0",
     background: "#fdfdfd",
-    overflowX: "hidden", // Bu zaten vardı ve doğru, burada kalmalı
+    overflowX: "hidden",
   };
 
   const logoWrapperStyle = {
@@ -189,7 +189,7 @@ const Home = () => {
   const brandsSectionStyle = {
     padding: "6rem 0",
     background: "#fff",
-    overflowX: "hidden", // Bu zaten vardı ve doğru, burada kalmalı
+    overflowX: "hidden",
   };
 
   const sectionHeadingStyle = {
@@ -257,14 +257,39 @@ const Home = () => {
   };
 
   const headlineText = "Experience the Art of Beauty.";
-
   const bookingUrl =
     "https://www.fresha.com/a/shine-beauty-nyc-new-york-315-west-57th-street-nyfwijkc/booking";
 
+  // --- BAŞLANGIÇ: YENİ BİLGİLENDİRME ŞERİDİ (BUTONSUZ) ---
+  const InfoStrip = () => {
+    const stripStyle = {
+      backgroundColor: "#5A7504", // Ana marka rengiyle uyumlu
+      color: "white",
+      padding: "12px 15px",
+      textAlign: "center",
+      position: "sticky",
+      top: 0,
+      zIndex: 1050,
+      fontFamily: "'Poppins', sans-serif",
+      fontSize: "0.9rem",
+      fontWeight: 500,
+      letterSpacing: "0.5px",
+    };
+
+    return (
+      <div style={stripStyle}>
+        ✨Book instantly on Fresha.com using the 'Book Now' button, or text us
+        via the WhatsApp icon.
+      </div>
+    );
+  };
+  // --- BİTİŞ: YENİ BİLGİLENDİRME ŞERİDİ ---
+
   return (
-    // --- BAŞLANGIÇ: ANA SARMALAYICI (WRAPPER) EKLENDİ ---
-    // Bu div, sayfanın yatayda taşmasını engeller.
     <div style={{ overflowX: "hidden" }}>
+      {/* BİLGİLENDİRME ŞERİDİ BURADA ÇAĞRILIYOR */}
+      <InfoStrip />
+
       <motion.div
         style={heroStyle}
         initial="hidden"
@@ -272,7 +297,6 @@ const Home = () => {
         variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
       >
         <Container>
-          {/* --- BAŞLANGIÇ: SADECE MOBİLDE GÖRÜNEN BUTON --- */}
           {isMobile && (
             <Row className="justify-content-center text-center mb-5">
               <Col>
@@ -286,7 +310,6 @@ const Home = () => {
               </Col>
             </Row>
           )}
-          {/* --- BİTİŞ: SADECE MOBİLDE GÖRÜNEN BUTON --- */}
 
           <Row className="justify-content-center text-center">
             <Col xs={12} className="mb-4">
@@ -378,6 +401,7 @@ const Home = () => {
         </Container>
       </motion.div>
 
+      {/* Sayfanın geri kalan içeriği... */}
       <motion.div
         style={{
           position: "relative",
@@ -493,7 +517,7 @@ const Home = () => {
       </motion.div>
 
       <Services />
-    </div> // --- BİTİŞ: ANA SARMALAYICI KAPATILDI ---
+    </div>
   );
 };
 
