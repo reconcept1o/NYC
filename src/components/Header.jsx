@@ -4,7 +4,6 @@ import { NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import BookButton from "../pages/BookButton";
 
-// Adım 1: Yaprak görselini import et
 import LeafIcon from "../assets/leaf101.png";
 
 const navLinks = [
@@ -60,13 +59,12 @@ const Header = () => {
     },
   };
 
-  // Adım 4: Yaprak için özel bir animasyon varyantı oluştur
   const leafVariant = {
     hidden: { opacity: 0, scale: 0.5, rotate: -90 },
     visible: {
       opacity: 1,
       scale: 1,
-      rotate: 15, // Stil ile aynı son rotasyon değeri
+      rotate: -5,
       transition: { type: "spring", damping: 12, stiffness: 100, delay: 0.7 },
     },
   };
@@ -93,13 +91,15 @@ const Header = () => {
     display: "inline-block",
   };
 
-  // Adım 3: Yaprak için stil objesi oluştur
   const leafStyle = {
-    height: isMobile ? "1.6rem" : "2.5rem",
+    // DEĞİŞİKLİK 1: Mobil (`isMobile: true`) durumunda yüksekliği 1.6rem'den 1.8rem'e çıkarıyoruz.
+    height: isMobile ? "1.8rem" : "2.5rem",
     width: "auto",
     marginLeft: "0.25rem",
-    // `transform` ile hassas konumlandırma yapıyoruz
-    transform: "translateY(-12px) rotate(-15deg)",
+    // DEĞİŞİKLİK 2: Konumlandırmayı da mobil ve masaüstü için ayrı ayrı ayarlıyoruz.
+    transform: isMobile
+      ? "translateY(-10px) rotate(-5deg)"
+      : "translateY(-16px) rotate(-5deg)",
   };
 
   const navLinkStyle = {
@@ -126,14 +126,12 @@ const Header = () => {
     >
       <Container>
         <Navbar.Brand as={NavLink} to="/" style={{ paddingRight: "1rem" }}>
-          {/* Adım 2: JSX yapısını güncelle */}
           <motion.div
             initial="hidden"
             animate="visible"
             variants={brandContainerVariants}
             style={brandContainerStyle}
           >
-            {/* Metnin harfleri burada render ediliyor */}
             {Array.from(text).map((letter, index) => (
               <motion.span
                 key={index}
@@ -143,7 +141,6 @@ const Header = () => {
                 {letter}
               </motion.span>
             ))}
-            {/* Yaprak görselini metinden hemen sonra ekliyoruz */}
             <motion.img
               src={LeafIcon}
               alt="Shine Beauty NYC Leaf"
