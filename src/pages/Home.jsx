@@ -260,7 +260,6 @@ const Home = () => {
   const bookingUrl =
     "https://www.fresha.com/a/shine-beauty-nyc-new-york-315-west-57th-street-nyfwijkc/booking";
 
-  // --- BAŞLANGIÇ: YENİ BİLGİLENDİRME ŞERİDİ (BUTONSUZ) ---
   const InfoStrip = () => {
     const stripStyle = {
       backgroundColor: "#5A7504", // Ana marka rengiyle uyumlu
@@ -269,7 +268,8 @@ const Home = () => {
       textAlign: "center",
       position: "sticky",
       top: 0,
-      zIndex: 1050,
+      // --- DEĞİŞİKLİK BURADA ---
+      zIndex: 1029, // Header'ın (genellikle z-index: 1030) arkasında kalması için düşürüldü.
       fontFamily: "'Poppins', sans-serif",
       fontSize: "0.9rem",
       fontWeight: 500,
@@ -283,11 +283,9 @@ const Home = () => {
       </div>
     );
   };
-  // --- BİTİŞ: YENİ BİLGİLENDİRME ŞERİDİ ---
 
   return (
     <div style={{ overflowX: "hidden" }}>
-      {/* BİLGİLENDİRME ŞERİDİ BURADA ÇAĞRILIYOR */}
       <InfoStrip />
 
       <motion.div
@@ -401,7 +399,6 @@ const Home = () => {
         </Container>
       </motion.div>
 
-      {/* Sayfanın geri kalan içeriği... */}
       <motion.div
         style={{
           position: "relative",
