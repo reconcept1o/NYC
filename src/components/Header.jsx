@@ -104,7 +104,7 @@ const Header = () => {
     position: "absolute",
     top: isMobile ? "-6px" : "-10px", // Container'ın üstünden ne kadar yukarıda olacağı
     right: -15, // Container'ın sağına hizala
-    height: isMobile ? "1.6rem" : "2.5rem",
+    height: isMobile ? "2rem" : "2.5rem",
     width: "auto",
     // Rotasyonu daha yukarı dönük bir his için pozitife çevirdik.
     transform: "rotate(15deg)",
