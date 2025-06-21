@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { motion } from "framer-motion";
-
 import Logo from "../assets/logo22.png"; // Logo yolunu kontrol edin
 
 const About = () => {
@@ -41,6 +40,7 @@ const About = () => {
     background: "#fdfdfd",
     fontFamily: "'Cormorant Garamond', serif",
     color: "#333",
+    overflowX: "hidden", // <-- SORUNU ÇÖZEN EKLEME
   };
 
   const headlineStyle = {
@@ -70,7 +70,7 @@ const About = () => {
   const logoStyle = {
     width: "100%",
     maxWidth: "200px",
-    margin: "0 auto 2rem auto",
+    margin: "2rem auto", // Margin'i biraz ayarlayarak daha iyi boşluk sağladım
     display: "block",
   };
 
@@ -82,17 +82,6 @@ const About = () => {
     color: "#1E8449",
     maxWidth: "700px",
     margin: "0 auto",
-  };
-
-  // Logo stilleri için dinamik koşullar
-  const logoLeftStyle = {
-    ...logoStyle,
-    display: isMobile ? "block" : "block", // Mobile'de her zaman görünür
-  };
-
-  const logoRightStyle = {
-    ...logoStyle,
-    display: isMobile ? "none" : "block", // Mobile'de gizli, web'de görünür
   };
 
   return (
@@ -116,6 +105,7 @@ const About = () => {
         </Row>
 
         <Row className="justify-content-center g-5 mb-5">
+          {/* Sol Sütun */}
           <Col lg={6}>
             <motion.div variants={fadeInUp}>
               <p style={paragraphStyle}>
@@ -133,7 +123,7 @@ const About = () => {
               <motion.img
                 src={Logo}
                 alt="Shine Beauty NYC Logo"
-                style={logoLeftStyle}
+                style={logoStyle} // Her zaman aynı stili kullan
                 variants={fadeInUp}
               />
             </motion.div>
@@ -142,12 +132,15 @@ const About = () => {
           {/* Sağ Sütun: Tecrübe ve Yeni Başlangıç */}
           <Col lg={6}>
             <motion.div variants={fadeInUp}>
-              <motion.img
-                src={Logo}
-                alt="Shine Beauty NYC Logo"
-                style={logoRightStyle}
-                variants={fadeInUp}
-              />
+              {/* Sadece mobil değilken bu logoyu göster (Daha temiz yaklaşım) */}
+              {!isMobile && (
+                <motion.img
+                  src={Logo}
+                  alt="Shine Beauty NYC Logo"
+                  style={logoStyle}
+                  variants={fadeInUp}
+                />
+              )}
               <p style={paragraphStyle}>
                 For over 15 years, we proudly operated two successful salons in
                 Nilüfer, one of the most prestigious districts in Bursa, Turkey.
