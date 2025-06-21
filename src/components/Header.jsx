@@ -64,7 +64,8 @@ const Header = () => {
     visible: {
       opacity: 1,
       scale: 1,
-      rotate: -5,
+      // DEĞİŞİKLİK: Yeni pozitif rotasyonla uyumlu hale getirildi.
+      rotate: 15,
       transition: { type: "spring", damping: 12, stiffness: 100, delay: 0.7 },
     },
   };
@@ -82,7 +83,14 @@ const Header = () => {
     zIndex: 1000,
   };
 
-  const brandContainerStyle = { display: "flex", alignItems: "center" };
+  const brandContainerStyle = {
+    // DEĞİŞİKLİK 1: Mutlak konumlandırılmış yaprak için referans noktası oluşturuyoruz.
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
+    // Yaprağın sığması için sağ tarafa boşluk ekliyoruz.
+    paddingRight: isMobile ? "1.8rem" : "2.8rem",
+  };
 
   const brandTextStyle = {
     color: "#1E8449",
@@ -92,14 +100,15 @@ const Header = () => {
   };
 
   const leafStyle = {
-    // DEĞİŞİKLİK 1: Mobil (`isMobile: true`) durumunda yüksekliği 1.6rem'den 1.8rem'e çıkarıyoruz.
-    height: isMobile ? "1.8rem" : "2.5rem",
+    // DEĞİŞİKLİK 2: Yaprağı mutlak konumlandırıyoruz.
+    position: "absolute",
+    top: isMobile ? "-6px" : "-10px", // Container'ın üstünden ne kadar yukarıda olacağı
+    right: -15, // Container'ın sağına hizala
+    height: isMobile ? "1.6rem" : "2.5rem",
     width: "auto",
-    marginLeft: "0.25rem",
-    // DEĞİŞİKLİK 2: Konumlandırmayı da mobil ve masaüstü için ayrı ayrı ayarlıyoruz.
-    transform: isMobile
-      ? "translateY(-10px) rotate(-5deg)"
-      : "translateY(-16px) rotate(-5deg)",
+    // Rotasyonu daha yukarı dönük bir his için pozitife çevirdik.
+    transform: "rotate(15deg)",
+    marginLeft: 0, // Artık gerekli değil
   };
 
   const navLinkStyle = {
@@ -125,7 +134,9 @@ const Header = () => {
       style={navbarStyle}
     >
       <Container>
-        <Navbar.Brand as={NavLink} to="/" style={{ paddingRight: "1rem" }}>
+        <Navbar.Brand as={NavLink} to="/">
+          {" "}
+          {/* paddingRight buradan kaldırıldı */}
           <motion.div
             initial="hidden"
             animate="visible"
@@ -141,6 +152,7 @@ const Header = () => {
                 {letter}
               </motion.span>
             ))}
+            {/* Yaprak hala aynı yerde, ama stilleri onu farklı konumlandıracak */}
             <motion.img
               src={LeafIcon}
               alt="Shine Beauty NYC Leaf"
