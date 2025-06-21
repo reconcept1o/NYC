@@ -172,8 +172,8 @@ const Footer = () => {
         <Row>
           <Col>
             <motion.div style={footerBottomStyle} variants={itemVariants}>
-              {/* --- DEĞİŞİKLİK BURADA BAŞLIYOR --- */}
-              <div className="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-2">
+              {/* --- DEĞİŞİKLİK BURADA --- */}
+              <div className="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-sm-2">
                 <span>
                   © {new Date().getFullYear()} Shine Beauty NYC. All Rights
                   Reserved.
@@ -184,7 +184,11 @@ const Footer = () => {
                   href="https://www.linkedin.com/in/s%C3%BCleyman-%C3%BCnver-9b3950245/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ color: "inherit", textDecoration: "none" }}
+                  style={{
+                    color: "inherit",
+                    textDecoration: "none",
+                    marginTop: "0.25rem",
+                  }}
                   whileHover={{
                     color: "#FFFFFF",
                     transition: { duration: 0.3 },
@@ -193,7 +197,7 @@ const Footer = () => {
                   Made by ReconceptX
                 </motion.a>
               </div>
-              {/* --- DEĞİŞİKLİK BURADA BİTİYOR --- */}
+              {/* --- DEĞİŞİKLİK BİTTİ --- */}
             </motion.div>
           </Col>
         </Row>

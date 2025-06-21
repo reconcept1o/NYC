@@ -1,209 +1,255 @@
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import {
-  FaMapMarkerAlt,
-  FaInstagram,
-  FaPhoneAlt,
-  FaEnvelope,
-} from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { Navbar, Nav, Container, Offcanvas } from "react-bootstrap";
+import { NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
+import BookButton from "../pages/BookButton";
 
-// --- VERİLER ---
-const phoneNumber = "(347) 978-5053";
-const address = "315 West 57th Street, New York, NY 10019";
-const emailAddress = "shine.beauty.nyc@hotmail.com";
-const googleMapsUrl = "https://maps.app.goo.gl/Xg8WRs4egWF2CFei9";
-const instagramUrl = "https://www.instagram.com/shine.beauty.nyc";
+import LeafIcon from "../assets/leaf101.png";
 
-const Footer = () => {
-  // --- STİL OBJELERİ ---
-  const footerStyle = {
-    backgroundColor: "#1C2526",
-    color: "#B0B0B0",
-    padding: "4rem 0 2rem",
-    fontFamily: "'Poppins', sans-serif",
-    fontSize: "0.95rem",
-    overflowX: "hidden",
-  };
+const navLinks = [
+  { name: "About", path: "/about" },
+  { name: "Services", path: "/services" },
+  // { name: "Gallery", path: "/gallery" },
+  { name: "Contact", path: "/contact" },
+];
 
-  const brandNameStyle = {
-    fontSize: "2.8rem",
-    fontWeight: 700,
-    color: "#FFFFFF",
-    fontFamily: "'Cormorant Garamond', serif",
-    lineHeight: 1.1,
-    textDecoration: "none",
-  };
+const Header = () => {
+  const [expanded, setExpanded] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const location = useLocation();
 
-  const ownerNameStyle = {
-    color: "#888888",
-    fontSize: "0.9rem",
-    letterSpacing: "0.5px",
-    textTransform: "uppercase",
-    marginTop: "0.5rem",
-  };
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 992);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-  const contactInfoStyle = {
-    display: "flex",
-    flexDirection: "column",
-    gap: "1rem",
-    color: "#D1D1D1",
-    fontFamily: "'Lato', sans-serif",
-    fontSize: "1rem",
-    width: "100%",
-    maxWidth: "350px",
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+      setLastScrollY(currentScrollY);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
-  const contactItemStyle = {
-    display: "flex",
-    alignItems: "center",
-    textDecoration: "none",
-    color: "inherit",
-    textAlign: "left",
-  };
-
-  const iconStyle = {
-    color: "#1E8449",
-    marginRight: "0.75rem",
-    fontSize: "1.2rem",
-    flexShrink: 0,
-  };
-
-  const footerBottomStyle = {
-    paddingTop: "2rem",
-    marginTop: "2rem",
-    borderTop: "1px solid #2D3A3B",
-    fontSize: "0.8rem",
-    color: "#777777",
-    textAlign: "center",
-  };
-
-  // --- ANİMASYON VARYANTLARI ---
-  const footerVariants = {
+  // --- Animasyon Varyantları ---
+  const brandContainerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { duration: 0.8, ease: "easeOut", staggerChildren: 0.15 },
+      transition: { staggerChildren: 0.05, delayChildren: 0.2 },
     },
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+  const letterVariants = {
+    hidden: { opacity: 0, y: -50, rotate: -10 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      rotate: 0,
+      transition: { type: "spring", damping: 12, stiffness: 200 },
     },
   };
 
+  const leafVariant = {
+    hidden: { opacity: 0, scale: 0.5, rotate: -90 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      // DEĞİŞİKLİK: Yeni pozitif rotasyonla uyumlu hale getirildi.
+      rotate: 15,
+      transition: { type: "spring", damping: 12, stiffness: 100, delay: 0.7 },
+    },
+  };
+
+  // --- Stiller ---
+  const navbarStyle = {
+    background: "#ffffff",
+    height: "80px",
+    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
+    fontFamily: "'Cormorant Garamond', serif",
+    transition: "transform 0.3s ease-in-out",
+    transform: isVisible ? "translateY(0)" : "translateY(-100%)",
+    position: "fixed",
+    width: "100%",
+    zIndex: 1000,
+  };
+
+  const brandContainerStyle = {
+    // DEĞİŞİKLİK 1: Mutlak konumlandırılmış yaprak için referans noktası oluşturuyoruz.
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
+    // Yaprağın sığması için sağ tarafa boşluk ekliyoruz.
+    paddingRight: isMobile ? "1.8rem" : "2.8rem",
+  };
+
+  const brandTextStyle = {
+    color: "#5A7504",
+    fontSize: isMobile ? "1.6rem" : "2.2rem",
+    fontWeight: 900,
+    display: "inline-block",
+  };
+
+  const leafStyle = {
+    // DEĞİŞİKLİK 2: Yaprağı mutlak konumlandırıyoruz.
+    position: "absolute",
+    top: isMobile ? "-6px" : "-10px", // Container'ın üstünden ne kadar yukarıda olacağı
+    right: -20, // Container'ın sağına hizala
+    height: isMobile ? "2rem" : "2.5rem",
+    width: "auto",
+    // Rotasyonu daha yukarı dönük bir his için pozitife çevirdik.
+    transform: "rotate(15deg)",
+    marginLeft: 0, // Artık gerekli değil
+  };
+
+  const navLinkStyle = {
+    position: "relative",
+    padding: "0.5rem 1rem",
+    color: "#333",
+    fontWeight: 900,
+    fontSize: "1.2rem",
+    transition: "color 0.3s ease",
+  };
+
+  const bookingUrl =
+    "https://www.fresha.com/a/shine-beauty-nyc-new-york-315-west-57th-street-nyfwijkc/booking";
+  const text = "Shine Beauty NYC";
+
   return (
-    <motion.footer
-      style={footerStyle}
-      variants={footerVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+    <Navbar
+      bg="transparent"
+      expand="lg"
+      fixed="top"
+      expanded={expanded}
+      onToggle={() => setExpanded(!expanded)}
+      style={navbarStyle}
     >
       <Container>
-        <Row className="gy-5 justify-content-between text-center text-lg-start">
-          {/* SÜTUN 1: MARKA KİMLİĞİ */}
-          <Col xs={12} lg={5}>
-            <motion.div
-              variants={itemVariants}
-              className="d-flex flex-column align-items-center align-items-lg-start"
-            >
-              <Link to="/" style={brandNameStyle}>
-                Shine Beauty NYC
-              </Link>
-              <p style={ownerNameStyle}>Mr. & Mrs. Sen</p>
-            </motion.div>
-          </Col>
+        <Navbar.Brand as={NavLink} to="/">
+          {" "}
+          {/* paddingRight buradan kaldırıldı */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={brandContainerVariants}
+            style={brandContainerStyle}
+          >
+            {Array.from(text).map((letter, index) => (
+              <motion.span
+                key={index}
+                variants={letterVariants}
+                style={{ ...brandTextStyle, whiteSpace: "pre" }}
+              >
+                {letter}
+              </motion.span>
+            ))}
+            {/* Yaprak hala aynı yerde, ama stilleri onu farklı konumlandıracak */}
+            <motion.img
+              src={LeafIcon}
+              alt="Shine Beauty NYC Leaf"
+              style={leafStyle}
+              variants={leafVariant}
+            />
+          </motion.div>
+        </Navbar.Brand>
 
-          {/* SÜTUN 2: İLETİŞİM BİLGİLERİ */}
-          <Col xs={12} lg={6}>
-            <motion.div
-              variants={itemVariants}
-              className="d-flex flex-column align-items-center align-items-lg-start"
-            >
-              <div style={contactInfoStyle}>
-                <motion.a
-                  href={`tel:${phoneNumber.replace(/\D/g, "")}`}
-                  style={contactItemStyle}
-                  whileHover={{ color: "#FFFFFF" }}
-                >
-                  <FaPhoneAlt style={iconStyle} />
-                  <span>{phoneNumber}</span>
-                </motion.a>
-                <motion.a
-                  href={googleMapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={contactItemStyle}
-                  whileHover={{ color: "#FFFFFF" }}
-                >
-                  <FaMapMarkerAlt style={iconStyle} />
-                  <span>{address}</span>
-                </motion.a>
-                <motion.a
-                  href={`mailto:${emailAddress}`}
-                  style={contactItemStyle}
-                  whileHover={{ color: "#FFFFFF" }}
-                >
-                  <FaEnvelope style={iconStyle} />
-                  <span>{emailAddress}</span>
-                </motion.a>
-                <motion.a
-                  href={instagramUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={contactItemStyle}
-                  whileHover={{ color: "#FFFFFF" }}
-                >
-                  <FaInstagram style={iconStyle} />
-                  <span>shine.beauty.nyc</span>
-                </motion.a>
-              </div>
-            </motion.div>
-          </Col>
-        </Row>
+        <Navbar.Toggle
+          aria-controls="responsive-navbar-nav"
+          style={{ border: "none" }}
+        />
 
-        {/* EN ALT BÖLÜM */}
-        <Row>
-          <Col>
-            <motion.div style={footerBottomStyle} variants={itemVariants}>
-              {/* --- DEĞİŞİKLİK BURADA --- */}
-              <div className="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-sm-2">
-                <span>
-                  © {new Date().getFullYear()} Shine Beauty NYC. All Rights
-                  Reserved.
-                </span>
-                {/* Bu ayırıcı | mobilde gizlenir, büyük ekranda görünür */}
-                <span className="d-none d-sm-inline">|</span>
-                <motion.a
-                  href="https://www.linkedin.com/in/s%C3%BCleyman-%C3%BCnver-9b3950245/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    color: "inherit",
-                    textDecoration: "none",
-                    marginTop: "0.25rem",
-                  }}
-                  whileHover={{
-                    color: "#FFFFFF",
-                    transition: { duration: 0.3 },
-                  }}
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="ms-auto align-items-center">
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.path;
+              return (
+                <Nav.Link
+                  key={link.name}
+                  as={NavLink}
+                  to={link.path}
+                  style={navLinkStyle}
+                  className="nav-link-hover"
                 >
-                  Made by ReconceptX
-                </motion.a>
-              </div>
-              {/* --- DEĞİŞİKLİK BİTTİ --- */}
-            </motion.div>
-          </Col>
-        </Row>
+                  {link.name}
+                  {isActive && (
+                    <motion.div
+                      layoutId="underline"
+                      style={{
+                        position: "absolute",
+                        bottom: -5,
+                        left: "1rem",
+                        right: "1rem",
+                        height: "2px",
+                        background: "#1E8449",
+                        borderRadius: "2px",
+                      }}
+                    />
+                  )}
+                </Nav.Link>
+              );
+            })}
+            <div className="ms-lg-3 mt-2 mt-lg-0">
+              <BookButton href={bookingUrl}>Book Now</BookButton>
+            </div>
+          </Nav>
+        </Navbar.Collapse>
+
+        <Offcanvas
+          show={expanded}
+          onHide={() => setExpanded(false)}
+          placement="end"
+        >
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title
+              style={{
+                color: "#1E8449",
+                fontFamily: "'Cormorant Garamond', serif",
+                fontWeight: 700,
+              }}
+            >
+              Menu
+            </Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body className="d-flex flex-column">
+            <Nav
+              className="flex-column"
+              style={{ fontFamily: "'Cormorant Garamond', serif" }}
+            >
+              {navLinks.map((link) => (
+                <Nav.Link
+                  as={NavLink}
+                  to={link.path}
+                  key={link.name}
+                  onClick={() => setExpanded(false)}
+                  className="py-2 fs-4 text-dark"
+                  style={{ fontWeight: 600 }}
+                >
+                  {link.name}
+                </Nav.Link>
+              ))}
+            </Nav>
+            <BookButton
+              href={bookingUrl}
+              variant="success"
+              className="w-100 mt-auto"
+              style={{ fontSize: "1.2rem", padding: "0.75rem" }}
+            >
+              Book Now
+            </BookButton>
+          </Offcanvas.Body>
+        </Offcanvas>
       </Container>
-    </motion.footer>
+    </Navbar>
   );
 };
 
-export default Footer;
+export default Header;
