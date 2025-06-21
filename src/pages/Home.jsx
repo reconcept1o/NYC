@@ -272,6 +272,22 @@ const Home = () => {
         variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
       >
         <Container>
+          {/* --- BAŞLANGIÇ: SADECE MOBİLDE GÖRÜNEN BUTON --- */}
+          {isMobile && (
+            <Row className="justify-content-center text-center mb-5">
+              <Col>
+                <motion.div variants={fadeInUp}>
+                  <BookButton
+                    href={bookingUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  />
+                </motion.div>
+              </Col>
+            </Row>
+          )}
+          {/* --- BİTİŞ: SADECE MOBİLDE GÖRÜNEN BUTON --- */}
+
           <Row className="justify-content-center text-center">
             <Col xs={12} className="mb-4">
               <motion.h1
@@ -476,7 +492,7 @@ const Home = () => {
         </Container>
       </motion.div>
 
-<Services />
+      <Services />
     </div> // --- BİTİŞ: ANA SARMALAYICI KAPATILDI ---
   );
 };
