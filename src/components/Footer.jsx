@@ -24,7 +24,7 @@ const Footer = () => {
     padding: "4rem 0 2rem",
     fontFamily: "'Poppins', sans-serif",
     fontSize: "0.95rem",
-    overflowX: "hidden", // Animasyon taşmalarını engellemek için eklendi
+    overflowX: "hidden",
   };
 
   const brandNameStyle = {
@@ -72,8 +72,7 @@ const Footer = () => {
 
   const footerBottomStyle = {
     paddingTop: "2rem",
-    // marginTop: "3rem", // <-- SORUNA YOL AÇAN BU SATIRI KALDIRDIK VEYA AZALTTIK.
-    marginTop: "2rem", // gy-5 ile birleşip çok fazla boşluk yaratmaması için azalttık.
+    marginTop: "2rem",
     borderTop: "1px solid #2D3A3B",
     fontSize: "0.8rem",
     color: "#777777",
@@ -173,16 +172,14 @@ const Footer = () => {
         <Row>
           <Col>
             <motion.div style={footerBottomStyle} variants={itemVariants}>
-              {/* --- İYİLEŞTİRME --- */}
-              {/* 'gap-2' sınıfı, flex yönü dikeyken (mobil) veya yatayken (desktop) 
-                  elemanlar arasına otomatik olarak boşluk bırakır. Bu, `mt-2 mt-md-0` gibi 
-                  koşullu margin sınıflarını kullanmaktan daha temiz bir yöntemdir. */}
-              <div className="d-flex flex-column flex-md-row justify-content-center align-items-center gap-2">
+              {/* --- DEĞİŞİKLİK BURADA --- */}
+              <div className="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-2">
                 <span>
                   © {new Date().getFullYear()} Shine Beauty NYC. All Rights
                   Reserved.
                 </span>
-                <span className="d-none d-md-inline">|</span>
+                {/* --- VE BURADA --- */}
+                <span className="d-none d-sm-inline">|</span>
                 <motion.a
                   href="https://www.linkedin.com/in/s%C3%BCleyman-%C3%BCnver-9b3950245/"
                   target="_blank"

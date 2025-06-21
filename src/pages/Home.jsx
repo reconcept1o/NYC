@@ -10,6 +10,8 @@ import WellaLogo from "../assets/wella.png";
 import IgoraLogo from "../assets/igora.png";
 import BookButton from "./BookButton"; // Import the new component
 
+import Services from "./Services";
+
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const salonImages = [
@@ -473,6 +475,8 @@ const Home = () => {
           </Row>
         </Container>
       </motion.div>
+
+<Services />
     </div> // --- BİTİŞ: ANA SARMALAYICI KAPATILDI ---
   );
 };
