@@ -103,8 +103,8 @@ const Header = () => {
     // DEĞİŞİKLİK 2: Yaprağı mutlak konumlandırıyoruz.
     position: "absolute",
     top: isMobile ? "-6px" : "-10px", // Container'ın üstünden ne kadar yukarıda olacağı
-    right: -20, // Container'ın sağına hizala
-    height: isMobile ? "2rem" : "2.5rem",
+    right: -38, // Container'ın sağına hizala
+    height: isMobile ? "2.5rem" : "3.3rem",
     width: "auto",
     // Rotasyonu daha yukarı dönük bir his için pozitife çevirdik.
     transform: "rotate(15deg)",
