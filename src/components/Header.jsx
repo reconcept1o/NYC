@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Navbar, Nav, Container, Offcanvas} from "react-bootstrap";
+import { Navbar, Nav, Container, Offcanvas } from "react-bootstrap";
 import { NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import BookButton from "../pages/BookButton"; // Adım 1: Yeni butonu import et
+import BookButton from "../pages/BookButton";
 
-// Animasyonlu buton için motion bileşeni artık burada gerekli değil.
-// const MotionButton = motion(Button); // Bu satırı silin veya yorum satırı yapın
+// Adım 1: Yaprak görselini import et
+import LeafIcon from "../assets/leaf101.png";
 
 const navLinks = [
   { name: "About", path: "/about" },
@@ -41,6 +41,7 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
+  // --- Animasyon Varyantları ---
   const brandContainerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -48,6 +49,7 @@ const Header = () => {
       transition: { staggerChildren: 0.05, delayChildren: 0.2 },
     },
   };
+
   const letterVariants = {
     hidden: { opacity: 0, y: -50, rotate: -10 },
     visible: {
@@ -58,6 +60,18 @@ const Header = () => {
     },
   };
 
+  // Adım 4: Yaprak için özel bir animasyon varyantı oluştur
+  const leafVariant = {
+    hidden: { opacity: 0, scale: 0.5, rotate: -90 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      rotate: 15, // Stil ile aynı son rotasyon değeri
+      transition: { type: "spring", damping: 12, stiffness: 100, delay: 0.7 },
+    },
+  };
+
+  // --- Stiller ---
   const navbarStyle = {
     background: "#ffffff",
     height: "80px",
@@ -69,13 +83,25 @@ const Header = () => {
     width: "100%",
     zIndex: 1000,
   };
+
   const brandContainerStyle = { display: "flex", alignItems: "center" };
+
   const brandTextStyle = {
     color: "#1E8449",
     fontSize: isMobile ? "1.4rem" : "2.2rem",
     fontWeight: 600,
     display: "inline-block",
   };
+
+  // Adım 3: Yaprak için stil objesi oluştur
+  const leafStyle = {
+    height: isMobile ? "1.6rem" : "2.5rem",
+    width: "auto",
+    marginLeft: "0.25rem",
+    // `transform` ile hassas konumlandırma yapıyoruz
+    transform: "translateY(-12px) rotate(-15deg)",
+  };
+
   const navLinkStyle = {
     position: "relative",
     padding: "0.5rem 1rem",
@@ -84,10 +110,6 @@ const Header = () => {
     fontSize: "1.2rem",
     transition: "color 0.3s ease",
   };
-
-  // Adım 2: Buton stillerini buradan kaldırın. Artık BookButton bileşeninde yönetiliyorlar.
-  // const buttonStyle = { ... };
-  // const buttonHoverStyle = { ... };
 
   const bookingUrl =
     "https://www.fresha.com/a/shine-beauty-nyc-new-york-315-west-57th-street-nyfwijkc/booking";
@@ -104,12 +126,14 @@ const Header = () => {
     >
       <Container>
         <Navbar.Brand as={NavLink} to="/" style={{ paddingRight: "1rem" }}>
+          {/* Adım 2: JSX yapısını güncelle */}
           <motion.div
             initial="hidden"
             animate="visible"
             variants={brandContainerVariants}
             style={brandContainerStyle}
           >
+            {/* Metnin harfleri burada render ediliyor */}
             {Array.from(text).map((letter, index) => (
               <motion.span
                 key={index}
@@ -119,6 +143,13 @@ const Header = () => {
                 {letter}
               </motion.span>
             ))}
+            {/* Yaprak görselini metinden hemen sonra ekliyoruz */}
+            <motion.img
+              src={LeafIcon}
+              alt="Shine Beauty NYC Leaf"
+              style={leafStyle}
+              variants={leafVariant}
+            />
           </motion.div>
         </Navbar.Brand>
 
@@ -157,7 +188,6 @@ const Header = () => {
                 </Nav.Link>
               );
             })}
-            {/* Adım 3: Eski butonu yeni BookButton bileşeni ile değiştirin */}
             <div className="ms-lg-3 mt-2 mt-lg-0">
               <BookButton href={bookingUrl}>Book Now</BookButton>
             </div>
@@ -198,12 +228,11 @@ const Header = () => {
                 </Nav.Link>
               ))}
             </Nav>
-            {/* Adım 4: Mobil menüdeki butonu da yeni BookButton ile değiştirin */}
             <BookButton
               href={bookingUrl}
-              variant="success" // Dolu yeşil görünüm için variant'ı değiştiriyoruz.
-              className="w-100 mt-auto" // Gerekli Bootstrap sınıflarını ekliyoruz.
-              style={{ fontSize: "1.2rem", padding: "0.75rem" }} // Gerekirse ek stil verebiliriz.
+              variant="success"
+              className="w-100 mt-auto"
+              style={{ fontSize: "1.2rem", padding: "0.75rem" }}
             >
               Book Now
             </BookButton>
