@@ -10,8 +10,6 @@ import WellaLogo from "../assets/wella.png";
 import IgoraLogo from "../assets/igora.png";
 import BookButton from "./BookButton"; // Import the new component
 
-
-
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const salonImages = [
@@ -100,7 +98,7 @@ const Home = () => {
     justifyContent: "center",
     padding: "5rem 0",
     background: "#fdfdfd",
-    overflowX: "hidden",
+    overflowX: "hidden", // Bu zaten vardı ve doğru, burada kalmalı
   };
 
   const logoWrapperStyle = {
@@ -189,7 +187,7 @@ const Home = () => {
   const brandsSectionStyle = {
     padding: "6rem 0",
     background: "#fff",
-    overflowX: "hidden",
+    overflowX: "hidden", // Bu zaten vardı ve doğru, burada kalmalı
   };
 
   const sectionHeadingStyle = {
@@ -262,12 +260,14 @@ const Home = () => {
     "https://www.fresha.com/a/shine-beauty-nyc-new-york-315-west-57th-street-nyfwijkc/booking";
 
   return (
-    <>
+    // --- BAŞLANGIÇ: ANA SARMALAYICI (WRAPPER) EKLENDİ ---
+    // Bu div, sayfanın yatayda taşmasını engeller.
+    <div style={{ overflowX: "hidden" }}>
       <motion.div
         style={heroStyle}
         initial="hidden"
         animate="visible"
-        variants={{ visible: { transition: { staggerChildren: 0.1 } } }} // Fixed missing closing brace
+        variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
       >
         <Container>
           <Row className="justify-content-center text-center">
@@ -279,17 +279,27 @@ const Home = () => {
                 viewport={{ once: false }}
                 variants={headlineContainerVariants}
               >
-                {Array.from(headlineText).map((letter, index) => (
-                  <motion.span
-                    key={index}
-                    variants={letterVariants}
-                    style={{ display: "inline-block", whiteSpace: "pre" }}
-                  >
-                    {letter}
-                  </motion.span>
+                {headlineText.split(" ").map((word, wordIndex) => (
+                  <React.Fragment key={wordIndex}>
+                    <span style={{ display: "inline-block" }}>
+                      {Array.from(word).map((letter, letterIndex) => (
+                        <motion.span
+                          key={`${wordIndex}-${letterIndex}`}
+                          variants={letterVariants}
+                          style={{ display: "inline-block" }}
+                        >
+                          {letter}
+                        </motion.span>
+                      ))}
+                    </span>
+                    {wordIndex < headlineText.split(" ").length - 1 ? (
+                      <span style={{ whiteSpace: "pre" }}> </span>
+                    ) : null}
+                  </React.Fragment>
                 ))}
               </motion.h1>
             </Col>
+
             <Col xs={12} className="my-3 my-md-4">
               <Row className="justify-content-center align-items-center">
                 <Col
@@ -463,7 +473,7 @@ const Home = () => {
           </Row>
         </Container>
       </motion.div>
-    </>
+    </div> // --- BİTİŞ: ANA SARMALAYICI KAPATILDI ---
   );
 };
 

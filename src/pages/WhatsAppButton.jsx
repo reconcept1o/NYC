@@ -14,7 +14,7 @@ const WhatsappButton = () => {
     // Ana buton, artık bir kapsayıcı gibi davranıyor.
     buttonContainer: {
       position: "fixed",
-      bottom: "30px",
+      bottom: "60px", // Artırıldı, mobil cihazlarda biraz yukarıda görünecek
       right: "30px",
       zIndex: 1000,
       cursor: "pointer",
