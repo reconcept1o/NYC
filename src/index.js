@@ -1,12 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap CSS
-import './index.css'; // Özel CSS için (şimdilik boş olabilir)
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom/client"; // React 18+ için
+// import ReactDOM from 'react-dom'; // React < 18 için
+import App from "./App"; // Ana App bileşeniniz
+import { HelmetProvider } from "react-helmet-async"; // HelmetProvider'ı import edin
+import "bootstrap/dist/css/bootstrap.min.css"; // Eğer Bootstrap CSS'i global olarak kullanıyorsanız
+import "./index.css"; // Global stilleriniz
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+// React 18+ için
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <HelmetProvider>
+ 
+      <App />
+    </HelmetProvider>{" "}
+  
   </React.StrictMode>
 );

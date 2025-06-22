@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async"; // Import Helmet
 import { Container, Row, Col } from "react-bootstrap";
 import { motion, AnimatePresence } from "framer-motion";
 
-import Logo from "../assets/logo22.png";
+import Logo from "../assets/logo22.png"; // Used for OG image
 import Salon1 from "../assets/2.jpg";
 import Salon2 from "../assets/1.jpg";
 import AdvertiseImg from "../assets/advertise.jpg";
@@ -36,6 +37,11 @@ const Home = () => {
       clearTimeout(timer);
     };
   }, [currentSlide, salonImages.length]);
+
+  // --- SEO Configuration ---
+  const siteUrl = "https://www.yourshinebeautynyc.com"; // IMPORTANT: Replace with your actual domain
+  // Assuming 'Logo' import resolves to a public path like '/static/media/logo22.hash.png'
+  const ogImageUrl = `${siteUrl}${Logo}`;
 
   // --- ANİMASYON VARYANTLARI ---
   const headlineContainerVariants = {
@@ -262,14 +268,13 @@ const Home = () => {
 
   const InfoStrip = () => {
     const stripStyle = {
-      backgroundColor: "#5A7504", // Ana marka rengiyle uyumlu
+      backgroundColor: "#5A7504",
       color: "white",
       padding: "12px 15px",
       textAlign: "center",
       position: "sticky",
       top: 0,
-      // --- DEĞİŞİKLİK BURADA ---
-      zIndex: 1029, // Header'ın (genellikle z-index: 1030) arkasında kalması için düşürüldü.
+      zIndex: 1029,
       fontFamily: "'Poppins', sans-serif",
       fontSize: "0.9rem",
       fontWeight: 500,
@@ -286,6 +291,68 @@ const Home = () => {
 
   return (
     <div style={{ overflowX: "hidden" }}>
+      <Helmet>
+        {/* --- Primary Meta Tags --- */}
+        <title>
+          Shine Beauty NYC | Premier Hair Salon & Beauty Treatments in NYC
+        </title>
+        <meta
+          name="description"
+          content="Experience the art of beauty at Shine Beauty NYC. Our expert stylists offer personalized hair treatments, coloring with Wella & Igora, and a luxurious salon experience in the heart of New York City. Book your appointment today!"
+        />
+        <meta
+          name="keywords"
+          content="Shine Beauty NYC, hair salon NYC, beauty salon New York, Wella Professionals, Igora Royal, hair coloring NYC, hair treatments NYC, luxury salon NYC, book hair appointment, best salon nyc, midtown salon"
+        />
+        <link rel="canonical" href={siteUrl} />
+
+        {/* --- Open Graph / Facebook Meta Tags --- */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={siteUrl} />
+        <meta
+          property="og:title"
+          content="Shine Beauty NYC | Premier Hair Salon & Beauty Treatments"
+        />
+        <meta
+          property="og:description"
+          content="Discover personalized hair treatments, expert coloring with Wella & Igora, and a luxurious salon experience at Shine Beauty NYC. Book now!"
+        />
+        <meta property="og:image" content={ogImageUrl} />
+        <meta property="og:image:alt" content="Shine Beauty NYC Logo" />
+        <meta property="og:site_name" content="Shine Beauty NYC" />
+        <meta property="og:locale" content="en_US" />
+
+        {/* --- Twitter Card Meta Tags --- */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={siteUrl} />
+        <meta
+          name="twitter:title"
+          content="Shine Beauty NYC | Premier Hair Salon & Beauty Treatments"
+        />
+        <meta
+          name="twitter:description"
+          content="Discover personalized hair treatments, expert coloring, and a luxurious salon experience at Shine Beauty NYC. Book now!"
+        />
+        <meta name="twitter:image" content={ogImageUrl} />
+        {/* Optional: If you have a Twitter handle for the site or creator
+        <meta name="twitter:site" content="@YourTwitterSiteHandle" />
+        <meta name="twitter:creator" content="@YourTwitterCreatorHandle" />
+        */}
+
+        {/* --- Standard Meta Tags --- */}
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta httpEquiv="Content-Language" content="en" />
+
+        {/* --- Favicon Lins (example - update paths to your actual favicons) --- */}
+        {/*
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        */}
+      </Helmet>
+
       <InfoStrip />
 
       <motion.div
@@ -381,7 +448,7 @@ const Home = () => {
                       <img
                         src={AdvertiseImg}
                         style={advertisementImgStyle}
-                        alt="Special promotion"
+                        alt="Special promotion: 20% off on Tuesdays"
                       />
                     </motion.div>
                     <p style={captionStyle}>Except Saturday</p>

@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async"; // Import Helmet
 import { Container, Row, Col } from "react-bootstrap";
 import { motion } from "framer-motion";
 import BookButton from "./BookButton";
 
-// Kategoriler için ikonlar
+// Icons for categories
 import { GiScissors, GiVial, GiPalette } from "react-icons/gi";
 import { FaPaintBrush } from "react-icons/fa";
 
-// Marka logoları
-import WellaLogo from "../assets/wella.png";
+// Brand logos
+import WellaLogo from "../assets/wella.png"; // Used for OG image or site logo
 import IgoraLogo from "../assets/igora.png";
+// You might want a general services page image for OG
+// import ServicesPageImage from "../assets/services_banner.jpg"; // Example
 
-// Servis verilerini yönetmek için temiz bir yapı
 const serviceCategories = [
   {
     title: "Hair Services",
@@ -63,7 +65,6 @@ const serviceCategories = [
 ];
 
 const Services = () => {
-  // Mobil cihazları algılamak için state
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
@@ -72,7 +73,13 @@ const Services = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // --- ANİMASYON VARYANTLARI ---
+  // --- SEO Configuration ---
+  const siteUrl = "https://www.yourshinebeautynyc.com"; // IMPORTANT: Replace with your actual domain
+  const pageUrl = `${siteUrl}/services`; // Full URL for this page
+  // Use a relevant image for OG, like WellaLogo or a general services banner
+  const ogImageUrl = `${siteUrl}${WellaLogo}`; // Or: `${siteUrl}${ServicesPageImage}`;
+
+  // --- ANIMATION VARIANTS ---
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -90,7 +97,7 @@ const Services = () => {
     },
   };
 
-  // --- STİLLER ---
+  // --- STYLES (Your existing styles remain the same) ---
   const pageStyle = {
     padding: "6rem 0",
     background: "#fdfdfd",
@@ -144,7 +151,6 @@ const Services = () => {
     fontWeight: 600,
   };
 
-  // --- Marka Bölümü Stilleri ---
   const brandsSectionContainerStyle = {
     background: "white",
     padding: "4rem 2rem",
@@ -214,7 +220,6 @@ const Services = () => {
     marginTop: "0.5rem",
   };
 
-  // --- Ürün Tedarik Kartı Stilleri ---
   const supplyCardStyle = {
     background: "white",
     padding: "2rem",
@@ -246,155 +251,210 @@ const Services = () => {
   };
 
   const supplyLinkHoverStyle = {
-    color: "#145C2F", // Darker shade for hover
+    color: "#145C2F",
   };
 
   const bookingUrl =
     "https://www.fresha.com/a/shine-beauty-nyc-new-york-315-west-57th-street-nyfwijkc/booking";
 
   return (
-    <motion.div
-      style={pageStyle}
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
-      <Container>
-        <Row className="justify-content-center mb-5 pb-4">
-          <Col md={10}>
-            <motion.h1 style={headlineStyle} variants={fadeInUp}>
-              Our Services & Pricing
-            </motion.h1>
-            {isMobile && (
-              <Row className="justify-content-center mt-3">
-                <Col xs={12} md={6} className="text-center">
-                  <motion.div variants={fadeInUp}>
-                    <BookButton
-                      href={bookingUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    />
-                  </motion.div>
-                </Col>
-              </Row>
-            )}
-          </Col>
-        </Row>
+    <>
+      <Helmet>
+        {/* --- Primary Meta Tags --- */}
+        <title>Our Services & Pricing | Shine Beauty NYC</title>
+        <meta
+          name="description"
+          content="Explore all hair cutting, coloring, treatment, and makeup services offered at Shine Beauty NYC with our current price list. Quality service with Wella, Igora, and Protector Professional products."
+        />
+        <meta
+          name="keywords"
+          content="haircut prices NYC, coloring prices NYC, Brazilian blowout NYC, keratin treatment NYC, makeup NYC, Wella, Igora, Shine Beauty NYC services, salon prices New York, hair salon services"
+        />
+        <link rel="canonical" href={pageUrl} />
 
-        {/* Hizmet Kartları */}
-        <Row className="g-4">
-          {serviceCategories.map((category, index) => (
-            <Col lg={6} key={index}>
-              <motion.div style={serviceCardStyle} variants={fadeInUp}>
-                <h3 style={categoryTitleStyle}>
-                  {category.icon} {category.title}
-                </h3>
-                {category.services.map((service, sIndex) => (
-                  <div style={serviceItemStyle} key={sIndex}>
-                    <span>{service.name}</span>
-                    <span style={dottedLineStyle}></span>
-                    <span style={priceStyle}>{service.price}</span>
-                  </div>
-                ))}
+        {/* --- Open Graph / Facebook Meta Tags --- */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={pageUrl} />
+        <meta
+          property="og:title"
+          content="Our Services & Pricing | Shine Beauty NYC"
+        />
+        <meta
+          property="og:description"
+          content="Discover our hair cutting, coloring, treatment, and makeup services & prices at Shine Beauty NYC."
+        />
+        <meta property="og:image" content={ogImageUrl} />
+        <meta
+          property="og:image:alt"
+          content="Shine Beauty NYC Services and Trusted Brands"
+        />
+        <meta property="og:site_name" content="Shine Beauty NYC" />
+        <meta property="og:locale" content="en_US" />
+
+        {/* --- Twitter Card Meta Tags --- */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={pageUrl} />
+        <meta
+          name="twitter:title"
+          content="Our Services & Pricing | Shine Beauty NYC"
+        />
+        <meta
+          name="twitter:description"
+          content="Explore our comprehensive list of hair and beauty services with pricing at Shine Beauty NYC."
+        />
+        <meta name="twitter:image" content={ogImageUrl} />
+
+        {/* --- Standard Meta Tags --- */}
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Helmet>
+
+      <motion.div
+        style={pageStyle}
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <Container>
+          <Row className="justify-content-center mb-5 pb-4">
+            <Col md={10}>
+              <motion.h1 style={headlineStyle} variants={fadeInUp}>
+                Our Services & Pricing
+              </motion.h1>
+              {isMobile && (
+                <Row className="justify-content-center mt-3">
+                  <Col xs={12} md={6} className="text-center">
+                    <motion.div variants={fadeInUp}>
+                      <BookButton
+                        href={bookingUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      />
+                    </motion.div>
+                  </Col>
+                </Row>
+              )}
+            </Col>
+          </Row>
+
+          {/* Service Cards */}
+          <Row className="g-4">
+            {serviceCategories.map((category, index) => (
+              <Col lg={6} key={index}>
+                <motion.div style={serviceCardStyle} variants={fadeInUp}>
+                  <h3 style={categoryTitleStyle}>
+                    {category.icon} {category.title}
+                  </h3>
+                  {category.services.map((service, sIndex) => (
+                    <div style={serviceItemStyle} key={sIndex}>
+                      <span>{service.name}</span>
+                      <span style={dottedLineStyle}></span>
+                      <span style={priceStyle}>{service.price}</span>
+                    </div>
+                  ))}
+                </motion.div>
+              </Col>
+            ))}
+          </Row>
+
+          {/* Product Supplier Card */}
+          <Row className="justify-content-center">
+            <Col md={10}>
+              <motion.div
+                style={supplyCardStyle}
+                variants={fadeInUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+              >
+                <h3 style={supplyHeadingStyle}>Our Product Suppliers</h3>
+                <p style={supplyTextStyle}>
+                  We proudly source our premium hair care products from{" "}
+                  <motion.a
+                    href="https://www.protectorofficial.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={supplyLinkStyle}
+                    whileHover={supplyLinkHoverStyle}
+                  >
+                    Protector Professional
+                  </motion.a>
+                  , a leader in innovative, paraben-free solutions that repair,
+                  strengthen, and protect all hair types.
+                </p>
               </motion.div>
             </Col>
-          ))}
-        </Row>
+          </Row>
 
-        {/* Ürün Tedarik Kartı */}
-        <Row className="justify-content-center">
-          <Col md={10}>
-            <motion.div
-              style={supplyCardStyle}
-              variants={fadeInUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-            >
-              <h3 style={supplyHeadingStyle}>Our Product Suppliers</h3>
-              <p style={supplyTextStyle}>
-                We proudly source our premium hair care products from{" "}
-                <motion.a
-                  href="https://www.protectorofficial.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={supplyLinkStyle}
-                  whileHover={supplyLinkHoverStyle}
+          {/* UPDATED BRANDS & PRODUCTS SECTION */}
+          <Row className="justify-content-center">
+            <Col md={10}>
+              <motion.div
+                style={brandsSectionContainerStyle}
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+              >
+                <motion.h2 style={brandSectionHeadingStyle} variants={fadeInUp}>
+                  The Brands We Trust
+                </motion.h2>
+                <motion.p
+                  style={brandSectionSubheadingStyle}
+                  variants={fadeInUp}
                 >
-                  Protector Professional
-                </motion.a>
-                , a leader in innovative, paraben-free solutions that repair,
-                strengthen, and protect all hair types.
-              </p>
-            </motion.div>
-          </Col>
-        </Row>
+                  To achieve stunning, long-lasting results, we exclusively use
+                  industry-leading products known for their exceptional quality
+                  and performance.
+                </motion.p>
 
-        {/* GÜNCELLENMİŞ MARKA & ÜRÜNLER BÖLÜMÜ */}
-        <Row className="justify-content-center">
-          <Col md={10}>
-            <motion.div
-              style={brandsSectionContainerStyle}
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-            >
-              <motion.h2 style={brandSectionHeadingStyle} variants={fadeInUp}>
-                The Brands We Trust
-              </motion.h2>
-              <motion.p style={brandSectionSubheadingStyle} variants={fadeInUp}>
-                To achieve stunning, long-lasting results, we exclusively use
-                industry-leading products known for their exceptional quality
-                and performance.
-              </motion.p>
-
-              <Row className="justify-content-center align-items-start gy-5 gy-lg-0">
-                <Col md={6} className="d-flex justify-content-center">
-                  <motion.div style={brandCardStyle} variants={fadeInUp}>
-                    <motion.div
-                      style={brandLogoWrapperStyle}
-                      whileHover={brandLogoWrapperHover}
-                    >
-                      <img
-                        src={WellaLogo}
-                        alt="Wella Professionals Logo"
-                        style={brandLogoStyle}
-                      />
+                <Row className="justify-content-center align-items-start gy-5 gy-lg-0">
+                  <Col md={6} className="d-flex justify-content-center">
+                    <motion.div style={brandCardStyle} variants={fadeInUp}>
+                      <motion.div
+                        style={brandLogoWrapperStyle}
+                        whileHover={brandLogoWrapperHover}
+                      >
+                        <img
+                          src={WellaLogo}
+                          alt="Wella Professionals Logo"
+                          style={brandLogoStyle}
+                        />
+                      </motion.div>
+                      <h3 style={brandNameStyle}>Wella Professionals</h3>
+                      <p style={brandDescriptionStyle}>
+                        Vibrant, rich colors that provide excellent coverage and
+                        a brilliant, healthy shine.
+                      </p>
                     </motion.div>
-                    <h3 style={brandNameStyle}>Wella Professionals</h3>
-                    <p style={brandDescriptionStyle}>
-                      Vibrant, rich colors that provide excellent coverage and a
-                      brilliant, healthy shine.
-                    </p>
-                  </motion.div>
-                </Col>
+                  </Col>
 
-                <Col md={6} className="d-flex justify-content-center">
-                  <motion.div style={brandCardStyle} variants={fadeInUp}>
-                    <motion.div
-                      style={brandLogoWrapperStyle}
-                      whileHover={brandLogoWrapperHover}
-                    >
-                      <img
-                        src={IgoraLogo}
-                        alt="Igora Royal Hair Dye Logo"
-                        style={brandLogoStyle}
-                      />
+                  <Col md={6} className="d-flex justify-content-center">
+                    <motion.div style={brandCardStyle} variants={fadeInUp}>
+                      <motion.div
+                        style={brandLogoWrapperStyle}
+                        whileHover={brandLogoWrapperHover}
+                      >
+                        <img
+                          src={IgoraLogo}
+                          alt="Igora Royal Hair Dye Logo"
+                          style={brandLogoStyle}
+                        />
+                      </motion.div>
+                      <h3 style={brandNameStyle}>Igora Royal</h3>
+                      <p style={brandDescriptionStyle}>
+                        The choice of professionals for absolute color fidelity,
+                        intensity, and flawless results.
+                      </p>
                     </motion.div>
-                    <h3 style={brandNameStyle}>Igora Royal</h3>
-                    <p style={brandDescriptionStyle}>
-                      The choice of professionals for absolute color fidelity,
-                      intensity, and flawless results.
-                    </p>
-                  </motion.div>
-                </Col>
-              </Row>
-            </motion.div>
-          </Col>
-        </Row>
-      </Container>
-    </motion.div>
+                  </Col>
+                </Row>
+              </motion.div>
+            </Col>
+          </Row>
+        </Container>
+      </motion.div>
+    </>
   );
 };
 
