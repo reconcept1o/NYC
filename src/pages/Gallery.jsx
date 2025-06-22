@@ -1,70 +1,110 @@
 import React, { useEffect } from "react";
 
-// Resim listesi aynı kalıyor
-const galleryImages = [
-  { id: 1, src: "/assets/2.jpg", alt: "Stunning blonde balayage" },
-  { id: 2, src: "/assets/3.jpg", alt: "Elegant hair styling" },
-  { id: 3, src: "/assets/4.jpg", alt: "Professional hair coloring" },
-  { id: 4, src: "/assets/5.jpg", alt: "Modern haircut for women" },
-  { id: 5, src: "/assets/6.jpg", alt: "Beautiful hair transformation" },
-  { id: 6, src: "/assets/7.jpg", alt: "Chic and stylish hair" },
-  { id: 7, src: "/assets/8.jpg", alt: "Long wavy hair style" },
-  { id: 8, src: "/assets/9.jpg", alt: "Shine Beauty NYC salon interior" },
+// --- VERİ ---
+// Yeni Reel linkini listeye ekledik.
+const postLinks = [
+  "https://www.instagram.com/p/C_wTo7DpKUQ/",
+  "https://www.instagram.com/reel/DBE_B-jvYqa/", // <-- YENİ REEL BURAYA EKLENDİ
 ];
 
-// --- STİLLERİ BASİTLEŞTİRİYORUZ ---
+// --- STİLLER ---
+// Stil kodunda hiçbir değişiklik yapmamıza gerek yok.
 const styles = {
-  // Sadece temel bir konteyner
   galleryContainer: {
     maxWidth: "1200px",
     margin: "2rem auto",
-    padding: "1rem",
+    padding: "0 1rem",
+    textAlign: "center",
+    fontFamily: "sans-serif",
   },
   galleryTitle: {
-    textAlign: "center",
     fontSize: "2.5rem",
-    marginBottom: "2rem",
+    fontWeight: 600,
+    marginBottom: "0.5rem",
+    color: "#333",
   },
-  // CSS Grid yerine basit bir Flexbox kullanıyoruz
-  simpleGrid: {
-    display: "flex",
-    flexWrap: "wrap", // Öğeler sığmazsa alt satıra geçsin
-    gap: "16px", // Aralarda boşluk
-    justifyContent: "center", // Ortala
+  gallerySubtitle: {
+    fontSize: "1.1rem",
+    color: "#666",
+    marginBottom: "3rem",
+    maxWidth: "600px",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
-  // EN ÖNEMLİ DEĞİŞİKLİK: aspect-ratio yerine sabit boyutlar veriyoruz
-  galleryItem: {
-    width: "300px",
-    height: "300px",
-    border: "2px solid red", // Görünüp görünmediğini anlamak için kırmızı çerçeve
-  },
-  // Resim stilini de basitleştiriyoruz
-  image: {
-    width: "100%",
-    height: "100%",
-    objectFit: "cover", // Oranı koruyarak doldur
+  galleryGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+    gap: "2rem",
+    justifyItems: "center",
   },
 };
 
+// --- BİLEŞEN ---
+// Bu bileşende de hiçbir değişiklik yapmamıza gerek yok.
+const InstagramPost = ({ permalink }) => {
+  const wrapperStyle = {
+    maxWidth: "400px",
+    width: "100%",
+    aspectRatio: "1 / 1",
+    overflow: "hidden",
+    borderRadius: "12px",
+    boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
+    position: "relative",
+  };
+
+  const iframeHackStyles = `
+    .instagram-embed-wrapper-${permalink.split("/")[4]} iframe {
+      width: 100% !important;
+      position: absolute !important;
+      top: -54px; 
+    }
+  `;
+
+  // Her gönderi için benzersiz bir className oluşturarak stil çakışmasını önlüyoruz.
+  const uniqueWrapperClass = `instagram-embed-wrapper-${
+    permalink.split("/")[4]
+  }`;
+
+  return (
+    <div style={wrapperStyle}>
+      <style>{iframeHackStyles}</style>
+      <div className={uniqueWrapperClass}>
+        <blockquote
+          className="instagram-media"
+          data-instgrm-permalink={permalink}
+          data-instgrm-version="14"
+        ></blockquote>
+      </div>
+    </div>
+  );
+};
+
 const Gallery = () => {
-  // SEO kısmı aynı kalabilir, soruna neden olmaz
-  const galleryTitle =
-    "Shine Beauty NYC Gallery - Stunning Hair & Beauty Looks";
   useEffect(() => {
-    document.title = galleryTitle;
+    const scriptId = "instagram-embed-script";
+    if (document.getElementById(scriptId)) {
+      // Script zaten varsa, Instagram'ın yeni eklenenleri işlemesi için process fonksiyonunu çağır.
+      window.instgrm?.Embeds.process();
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.id = scriptId;
+    script.src = "https://www.instagram.com/embed.js";
+    script.async = true;
+
+    document.body.appendChild(script);
   }, []);
 
   return (
     <div style={styles.galleryContainer}>
-      <h1 style={styles.galleryTitle}>Our Gallery (Test Mode)</h1>
-
-      {/* Basitleştirilmiş Grid yapısı */}
-      <div style={styles.simpleGrid}>
-        {galleryImages.map((image) => (
-          // Hover efektleri ve state kaldırıldı
-          <div key={image.id} style={styles.galleryItem}>
-            <img src={image.src} alt={image.alt} style={styles.image} />
-          </div>
+      <h1 style={styles.galleryTitle}>Our Gallery</h1>
+      <p style={styles.gallerySubtitle}>
+        Discover the artistry and transformations from our talented stylists.
+      </p>
+      <div style={styles.galleryGrid}>
+        {postLinks.map((link, index) => (
+          <InstagramPost key={index} permalink={link} />
         ))}
       </div>
     </div>
