@@ -527,14 +527,13 @@ const Home = () => {
             performance.
           </motion.p>
           <Row className="justify-content-center align-items-start gy-5 gy-lg-0">
+            {/* DÜZELTİLMİŞ WELLA KARTI */}
             <Col
               xs={12}
               sm={6}
               lg={5}
               className="d-flex justify-content-center"
             >
-              {" "}
-              {/* Mobil için xs=12 eklendi */}
               <motion.div style={brandCardStyle} variants={fadeInUp}>
                 <motion.div
                   style={brandLogoWrapperStyle}
@@ -553,14 +552,13 @@ const Home = () => {
                 </p>
               </motion.div>
             </Col>
+            {/* DÜZELTİLMİŞ IGORA KARTI */}
             <Col
               xs={12}
               sm={6}
               lg={5}
               className="d-flex justify-content-center"
             >
-              {" "}
-              {/* Mobil için xs=12 eklendi */}
               <motion.div style={brandCardStyle} variants={fadeInUp}>
                 <motion.div
                   style={brandLogoWrapperStyle}
@@ -579,11 +577,12 @@ const Home = () => {
                 </p>
               </motion.div>
             </Col>
+            {/* MEVCUT KARTLAR (DOĞRUYDU) */}
             <Col
               xs={12}
               sm={6}
               lg={5}
-              className="d-flex justify-content-center mt-5 mt-md-0"
+              className="d-flex justify-content-center mt-5 mt-lg-0"
             >
               <motion.div style={brandCardStyle} variants={fadeInUp}>
                 <motion.div
@@ -625,7 +624,7 @@ const Home = () => {
               xs={12}
               sm={6}
               lg={5}
-              className="d-flex justify-content-center mt-5 mt-md-0"
+              className="d-flex justify-content-center mt-5 mt-lg-0"
             >
               <motion.div style={brandCardStyle} variants={fadeInUp}>
                 <motion.div
