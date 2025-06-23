@@ -1,112 +1,231 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
-// --- VERİ ---
-// Yeni Reel linkini listeye ekledik.
-const postLinks = [
-  "https://www.instagram.com/p/C_wTo7DpKUQ/",
-  "https://www.instagram.com/reel/DBE_B-jvYqa/", // <-- YENİ REEL BURAYA EKLENDİ
+// --- YENİ İMPORTLAR ---
+import { motion } from "framer-motion"; // Animasyon için
+import BookButton from "../pages/BookButton"; // Buton için (yolu kontrol edin)
+
+// KÜTÜPHANE İMPORTLARI
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation } from "swiper/modules";
+import Lightbox from "yet-another-react-lightbox";
+
+// CSS İMPORTLARI
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "yet-another-react-lightbox/styles.css";
+
+// --- VERİ (RESİM İMPORTLARI) ---
+import image1 from "../assets/galery/1.jpg";
+import image2 from "../assets/galery/2.jpg";
+import image3 from "../assets/galery/3.jpg";
+import image4 from "../assets/galery/4.jpg";
+import image5 from "../assets/galery/5.jpg";
+import image6 from "../assets/galery/6.jpg";
+import image7 from "../assets/galery/7.jpg";
+import image8 from "../assets/galery/8.jpg";
+import image9 from "../assets/galery/9.jpg";
+import image10 from "../assets/galery/10.jpg";
+import image11 from "../assets/galery/11.jpg";
+import image12 from "../assets/galery/12.jpg";
+import image13 from "../assets/galery/13.jpg";
+import image14 from "../assets/galery/14.jpg";
+import image15 from "../assets/galery/15.jpg";
+import image16 from "../assets/galery/16.jpg";
+import image17 from "../assets/galery/17.jpg";
+import image18 from "../assets/galery/18.jpg";
+import image19 from "../assets/galery/19.jpg";
+import image20 from "../assets/galery/20.jpg";
+import image21 from "../assets/galery/21.jpg";
+
+const allImageModules = [
+  image1,
+  image2,
+  image3,
+  image4,
+  image5,
+  image6,
+  image7,
+  image8,
+  image9,
+  image10,
+  image11,
+  image12,
+  image13,
+  image14,
+  image15,
+  image16,
+  image17,
+  image18,
+  image19,
+  image20,
+  image21,
 ];
 
+const galleryImages = allImageModules.map((src, index) => ({
+  src,
+  alt: `Gallery image ${index + 1}`,
+}));
+
+// --- ANİMASYON VARİANTLARI ---
+const textContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.2 },
+  },
+};
+
+const textItemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } },
+};
+
+// --- CUSTOM HOOK ---
+const useMediaQuery = (query) => {
+  const [matches, setMatches] = useState(false);
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) setMatches(media.matches);
+    const listener = () => setMatches(media.matches);
+    window.addEventListener("resize", listener);
+    return () => window.removeEventListener("resize", listener);
+  }, [matches, query]);
+  return matches;
+};
+
 // --- STİLLER ---
-// Stil kodunda hiçbir değişiklik yapmamıza gerek yok.
 const styles = {
   galleryContainer: {
     maxWidth: "1200px",
     margin: "2rem auto",
     padding: "0 1rem",
     textAlign: "center",
-    fontFamily: "sans-serif",
+    fontFamily: "'Poppins', sans-serif",
   },
-  galleryTitle: {
-    fontSize: "2.5rem",
-    fontWeight: 600,
-    marginBottom: "0.5rem",
+  slogan: {
+    fontSize: "clamp(2rem, 5vw, 3.5rem)",
+    fontWeight: 700,
     color: "#333",
+    marginBottom: "1rem",
+    textTransform: "uppercase",
+    letterSpacing: "3px",
   },
-  gallerySubtitle: {
-    fontSize: "1.1rem",
+  introText: {
+    fontSize: "clamp(1rem, 2.5vw, 1.1rem)",
     color: "#666",
-    marginBottom: "3rem",
-    maxWidth: "600px",
-    marginLeft: "auto",
-    marginRight: "auto",
+    maxWidth: "700px",
+    margin: "0 auto 2rem auto",
+    lineHeight: "1.6",
   },
-  galleryGrid: {
+  desktopGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-    gap: "2rem",
-    justifyItems: "center",
+    gridTemplateColumns: "repeat(4, 1fr)",
+    gap: "1rem",
+  },
+  gridItem: {
+    overflow: "hidden",
+    borderRadius: "8px",
+    cursor: "pointer",
+    aspectRatio: "1 / 1",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+  },
+  thumbnail: {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    transition: "transform 0.4s ease",
+  },
+  carouselImage: {
+    display: "block",
+    width: "100%",
+    height: "auto",
+    maxHeight: "70vh",
+    objectFit: "contain",
   },
 };
 
-// --- BİLEŞEN ---
-// Bu bileşende de hiçbir değişiklik yapmamıza gerek yok.
-const InstagramPost = ({ permalink }) => {
-  const wrapperStyle = {
-    maxWidth: "400px",
-    width: "100%",
-    aspectRatio: "1 / 1",
-    overflow: "hidden",
-    borderRadius: "12px",
-    boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
-    position: "relative",
-  };
-
-  const iframeHackStyles = `
-    .instagram-embed-wrapper-${permalink.split("/")[4]} iframe {
-      width: 100% !important;
-      position: absolute !important;
-      top: -54px; 
-    }
-  `;
-
-  // Her gönderi için benzersiz bir className oluşturarak stil çakışmasını önlüyoruz.
-  const uniqueWrapperClass = `instagram-embed-wrapper-${
-    permalink.split("/")[4]
-  }`;
-
-  return (
-    <div style={wrapperStyle}>
-      <style>{iframeHackStyles}</style>
-      <div className={uniqueWrapperClass}>
-        <blockquote
-          className="instagram-media"
-          data-instgrm-permalink={permalink}
-          data-instgrm-version="14"
-        ></blockquote>
-      </div>
-    </div>
-  );
-};
-
+// --- ANA GALERİ BİLEŞENİ ---
 const Gallery = () => {
-  useEffect(() => {
-    const scriptId = "instagram-embed-script";
-    if (document.getElementById(scriptId)) {
-      // Script zaten varsa, Instagram'ın yeni eklenenleri işlemesi için process fonksiyonunu çağır.
-      window.instgrm?.Embeds.process();
-      return;
-    }
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
-    const script = document.createElement("script");
-    script.id = scriptId;
-    script.src = "https://www.instagram.com/embed.js";
-    script.async = true;
-
-    document.body.appendChild(script);
-  }, []);
+  const openLightbox = (index) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
 
   return (
     <div style={styles.galleryContainer}>
-      <h1 style={styles.galleryTitle}>Our Gallery</h1>
-      <p style={styles.gallerySubtitle}>
-        Discover the artistry and transformations from our talented stylists.
-      </p>
-      <div style={styles.galleryGrid}>
-        {postLinks.map((link, index) => (
-          <InstagramPost key={index} permalink={link} />
-        ))}
-      </div>
+      <motion.div
+        variants={textContainerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.h1 style={styles.slogan} variants={textItemVariants}>
+          The Art of Transformation
+        </motion.h1>
+        <motion.p style={styles.introText} variants={textItemVariants}>
+          Step into the world of Shine Beauty NYC. This gallery is a testament
+          to the skill, passion, and creativity our stylists pour into every
+          client's look. Explore the transformations and envision your own.
+        </motion.p>
+        <motion.div
+          variants={textItemVariants}
+          style={{ marginBottom: "3rem" }}
+        >
+          <BookButton />
+        </motion.div>
+      </motion.div>
+
+      {isMobile ? (
+        <Swiper
+          modules={[Pagination, Navigation]}
+          slidesPerView={1}
+          spaceBetween={30}
+          loop={true}
+          pagination={{ clickable: true }}
+          navigation={true}
+        >
+          {galleryImages.map((image, index) => (
+            <SwiperSlide key={index}>
+              <img
+                src={image.src}
+                alt={image.alt}
+                style={styles.carouselImage}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      ) : (
+        <div style={styles.desktopGrid}>
+          {galleryImages.map((image, index) => (
+            <div
+              key={index}
+              style={styles.gridItem}
+              onClick={() => openLightbox(index)}
+              onMouseOver={(e) =>
+                (e.currentTarget.querySelector("img").style.transform =
+                  "scale(1.1)")
+              }
+              onMouseOut={(e) =>
+                (e.currentTarget.querySelector("img").style.transform =
+                  "scale(1)")
+              }
+            >
+              <img src={image.src} alt={image.alt} style={styles.thumbnail} />
+            </div>
+          ))}
+        </div>
+      )}
+
+      <Lightbox
+        open={lightboxOpen}
+        close={() => setLightboxOpen(false)}
+        slides={galleryImages}
+        index={lightboxIndex}
+      />
     </div>
   );
 };
