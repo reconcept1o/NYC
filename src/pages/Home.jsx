@@ -4,9 +4,9 @@ import { Container, Row, Col } from "react-bootstrap";
 import { motion, AnimatePresence } from "framer-motion";
 
 import Logo from "../assets/logo22.png"; // Used for OG image
-import Salon1 from "../assets/2.jpg";
-import Salon2 from "../assets/1.jpg";
-import AdvertiseImg from "../assets/advertise.jpg";
+import Salon1 from "../assets/1.webp";
+import Salon2 from "../assets/2.webp";
+import AdvertiseImg from "../assets/advertise.webp";
 // Kaldırılan logolar: WellaLogo, IgoraLogo, Prod22, Prod44
 import BookButton from "./BookButton";
 

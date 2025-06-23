@@ -16,27 +16,27 @@ import "swiper/css/navigation";
 import "yet-another-react-lightbox/styles.css";
 
 // --- VERİ (RESİM İMPORTLARI) ---
-import image1 from "../assets/galery/1.jpg";
-import image2 from "../assets/galery/2.jpg";
-import image3 from "../assets/galery/3.jpg";
-import image4 from "../assets/galery/4.jpg";
-import image5 from "../assets/galery/5.jpg";
-import image6 from "../assets/galery/6.jpg";
-import image7 from "../assets/galery/7.jpg";
-import image8 from "../assets/galery/8.jpg";
-import image9 from "../assets/galery/9.jpg";
-import image10 from "../assets/galery/10.jpg";
-import image11 from "../assets/galery/11.jpg";
-import image12 from "../assets/galery/12.jpg";
-import image13 from "../assets/galery/13.jpg";
-import image14 from "../assets/galery/14.jpg";
-import image15 from "../assets/galery/15.jpg";
-import image16 from "../assets/galery/16.jpg";
-import image17 from "../assets/galery/17.jpg";
-import image18 from "../assets/galery/18.jpg";
-import image19 from "../assets/galery/19.jpg";
-import image20 from "../assets/galery/20.jpg";
-import image21 from "../assets/galery/21.jpg";
+import image1 from "../assets/galery/1.webp";
+import image2 from "../assets/galery/2.webp";
+import image3 from "../assets/galery/3.webp";
+import image4 from "../assets/galery/4.webp";
+import image5 from "../assets/galery/5.webp";
+import image6 from "../assets/galery/6.webp";
+import image7 from "../assets/galery/7.webp";
+import image8 from "../assets/galery/8.webp";
+import image9 from "../assets/galery/9.webp";
+import image10 from "../assets/galery/10.webp";
+import image11 from "../assets/galery/11.webp";
+import image12 from "../assets/galery/12.webp";
+import image13 from "../assets/galery/13.webp";
+import image14 from "../assets/galery/14.webp";
+import image15 from "../assets/galery/15.webp";
+import image16 from "../assets/galery/16.webp";
+import image17 from "../assets/galery/17.webp";
+import image18 from "../assets/galery/18.webp";
+import image19 from "../assets/galery/19.webp";
+import image20 from "../assets/galery/20.webp";
+import image21 from "../assets/galery/21.webp";
 
 const allImageModules = [
   image1,
