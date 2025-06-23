@@ -7,7 +7,6 @@ import Logo from "../assets/logo22.png"; // Used for OG image
 import Salon1 from "../assets/2.jpg";
 import Salon2 from "../assets/1.jpg";
 import AdvertiseImg from "../assets/advertise.jpg";
-// Kaldırılan logolar: WellaLogo, IgoraLogo, Prod22, Prod44
 import BookButton from "./BookButton";
 
 import Services from "./Services";
@@ -38,7 +37,7 @@ const Home = () => {
   }, [currentSlide, salonImages.length]);
 
   // --- SEO Configuration ---
-  const siteUrl = "https://www.yourshinebeautynyc.com"; // IMPORTANT: Replace with your actual domain
+  const siteUrl = "https://www.yourshinebeautynyc.com";
   const ogImageUrl = `${siteUrl}${Logo}`;
 
   // --- ANİMASYON VARYANTLARI ---
@@ -78,6 +77,19 @@ const Home = () => {
         duration: 0.8,
         ease: "easeOut",
         staggerChildren: 0.2,
+      },
+    },
+  };
+
+  // YENİ EKLENEN ANİMASYON VARYANTI
+  const sectionReveal = {
+    hidden: { opacity: 0, y: 60 }, // Başlangıçta görünmez ve 60px aşağıda
+    visible: {
+      opacity: 1,
+      y: 0, // Bitişte tam opak ve orijinal pozisyonunda
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
       },
     },
   };
@@ -206,7 +218,7 @@ const Home = () => {
   return (
     <div style={{ overflowX: "hidden" }}>
       <Helmet>
-        {/* --- Primary Meta Tags --- */}
+        {/* --- Meta Tags... --- */}
         <title>
           Shine Beauty NYC | Premier Hair Salon & Beauty Treatments in NYC
         </title>
@@ -219,8 +231,6 @@ const Home = () => {
           content="Shine Beauty NYC, hair salon NYC, beauty salon New York, hair coloring NYC, hair treatments NYC, luxury salon NYC, book hair appointment, best salon nyc, midtown salon"
         />
         <link rel="canonical" href={siteUrl} />
-
-        {/* --- Open Graph / Facebook Meta Tags --- */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content={siteUrl} />
         <meta
@@ -235,8 +245,6 @@ const Home = () => {
         <meta property="og:image:alt" content="Shine Beauty NYC Logo" />
         <meta property="og:site_name" content="Shine Beauty NYC" />
         <meta property="og:locale" content="en_US" />
-
-        {/* --- Twitter Card Meta Tags --- */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content={siteUrl} />
         <meta
@@ -248,8 +256,6 @@ const Home = () => {
           content="Discover personalized hair treatments, expert coloring, and a luxurious salon experience at Shine Beauty NYC. Book now!"
         />
         <meta name="twitter:image" content={ogImageUrl} />
-
-        {/* --- Standard Meta Tags --- */}
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta httpEquiv="Content-Language" content="en" />
@@ -423,9 +429,15 @@ const Home = () => {
         </Container>
       </motion.div>
 
-      {/* "Quality We Trust" BÖLÜMÜ TAMAMEN KALDIRILDI */}
-
-      <Services />
+      {/* --- SERVICES BÖLÜMÜNE ANİMASYON UYGULAMASI --- */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }} // Animasyonun, bölümün %20'si göründüğünde başlamasını sağlar
+        variants={sectionReveal}
+      >
+        <Services />
+      </motion.div>
     </div>
   );
 };
