@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async"; // Import Helmet
 import { Container, Row, Col } from "react-bootstrap";
 import { motion } from "framer-motion";
-import Logo from "../assets/logo22.png"; // Ensure this path is correct, used for OG image
+import Logo from "../assets/logo22.webp"; // Ensure this path is correct, used for OG image
 
 const About = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 992);

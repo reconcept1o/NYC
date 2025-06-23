@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 
 // --- ÜRÜN RESİMLERİNİ İMPORT ET ---
-import prod11 from "../assets/prod11.png";
-import prod66 from "../assets/prod66.png";
+import prod11 from "../assets/prod11.webp";
+import prod66 from "../assets/prod66.webp";
 // Opsiyonel: Eğer özel bir ikon kullanmak isterseniz
 // import checkIcon from '../assets/check-icon.svg';
 

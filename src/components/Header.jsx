@@ -4,7 +4,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import BookButton from "../pages/BookButton";
 
-import LeafIcon from "../assets/leaf101.png";
+import LeafIcon from "../assets/leaf101.webp";
 
 // --- DEĞİŞİKLİK BURADA ---
 // Yeni link diziye eklendi.
