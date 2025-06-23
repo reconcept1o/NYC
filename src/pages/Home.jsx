@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Helmet } from "react-helmet-async"; // Import Helmet
+import { Helmet } from "react-helmet-async";
 import { Container, Row, Col } from "react-bootstrap";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -7,11 +7,8 @@ import Logo from "../assets/logo22.png"; // Used for OG image
 import Salon1 from "../assets/2.jpg";
 import Salon2 from "../assets/1.jpg";
 import AdvertiseImg from "../assets/advertise.jpg";
-import WellaLogo from "../assets/wella.png";
-import IgoraLogo from "../assets/igora.png";
-import Prod22 from "../assets/prod22.png"; // Yeni resim import
-import Prod44 from "../assets/prod44.png"; // Yeni resim import
-import BookButton from "./BookButton"; // Import the new component
+// Kaldırılan logolar: WellaLogo, IgoraLogo, Prod22, Prod44
+import BookButton from "./BookButton";
 
 import Services from "./Services";
 
@@ -73,20 +70,6 @@ const Home = () => {
 
   const slideInFromRight = {
     hidden: { x: 100, opacity: 0 },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        type: "tween",
-        duration: 0.8,
-        ease: "easeOut",
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const slideInFromLeft = {
-    hidden: { x: -100, opacity: 0 },
     visible: {
       x: 0,
       opacity: 1,
@@ -193,76 +176,6 @@ const Home = () => {
     letterSpacing: "0.5px",
   };
 
-  const brandsSectionStyle = {
-    padding: "6rem 0",
-    background: "#fff",
-    overflowX: "hidden",
-  };
-
-  const sectionHeadingStyle = {
-    fontFamily: "'Cormorant Garamond', serif",
-    fontSize: "clamp(2rem, 5vw, 3rem)",
-    fontWeight: 700,
-    color: "#333",
-    marginBottom: "1rem",
-    textAlign: "center",
-  };
-
-  const sectionSubheadingStyle = {
-    fontFamily: "'Poppins', sans-serif",
-    fontSize: "clamp(1rem, 2.5vw, 1.15rem)",
-    color: "#666",
-    textAlign: "center",
-    maxWidth: "700px",
-    margin: "0 auto 4rem auto",
-    lineHeight: 1.6,
-  };
-
-  const brandCardStyle = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    textAlign: "center",
-  };
-
-  const brandLogoWrapperStyle = {
-    width: "180px",
-    height: "180px",
-    borderRadius: "50%",
-    background: "#f8f9fa",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: "2rem",
-    boxShadow: "0 10px 30px rgba(0, 0, 0, 0.07)",
-    transition: "transform 0.3s ease, box-shadow 0.3s ease",
-  };
-
-  const brandLogoWrapperHover = {
-    transform: "translateY(-10px)",
-    boxShadow: "0 20px 40px rgba(0, 0, 0, 0.12)",
-  };
-
-  const brandLogoStyle = {
-    maxWidth: "120px", // Resimleri biraz büyütmek için 100px'den 120px'e artırıldı
-    height: "auto", // Oran korunuyor
-  };
-
-  const brandNameStyle = {
-    fontFamily: "'Cormorant Garamond', serif",
-    fontSize: "1.75rem",
-    fontWeight: 600,
-    color: "#1E8449",
-    margin: 0,
-  };
-
-  const brandDescriptionStyle = {
-    fontSize: "1rem",
-    color: "#555",
-    marginTop: "0.5rem",
-    fontFamily: "'Poppins', sans-serif",
-  };
-
   const headlineText = "Experience the Art of Beauty.";
   const bookingUrl =
     "https://www.fresha.com/a/shine-beauty-nyc-new-york-315-west-57th-street-nyfwijkc/booking";
@@ -299,11 +212,11 @@ const Home = () => {
         </title>
         <meta
           name="description"
-          content="Experience the art of beauty at Shine Beauty NYC. Our expert stylists offer personalized hair treatments, coloring with Wella & Igora, and a luxurious salon experience in the heart of New York City. Book your appointment today!"
+          content="Experience the art of beauty at Shine Beauty NYC. Our expert stylists offer personalized hair treatments, coloring, and a luxurious salon experience in the heart of New York City. Book your appointment today!"
         />
         <meta
           name="keywords"
-          content="Shine Beauty NYC, hair salon NYC, beauty salon New York, Wella Professionals, Igora Royal, hair coloring NYC, hair treatments NYC, luxury salon NYC, book hair appointment, best salon nyc, midtown salon"
+          content="Shine Beauty NYC, hair salon NYC, beauty salon New York, hair coloring NYC, hair treatments NYC, luxury salon NYC, book hair appointment, best salon nyc, midtown salon"
         />
         <link rel="canonical" href={siteUrl} />
 
@@ -316,7 +229,7 @@ const Home = () => {
         />
         <meta
           property="og:description"
-          content="Discover personalized hair treatments, expert coloring with Wella & Igora, and a luxurious salon experience at Shine Beauty NYC. Book now!"
+          content="Discover personalized hair treatments, expert coloring, and a luxurious salon experience at Shine Beauty NYC. Book now!"
         />
         <meta property="og:image" content={ogImageUrl} />
         <meta property="og:image:alt" content="Shine Beauty NYC Logo" />
@@ -510,160 +423,7 @@ const Home = () => {
         </Container>
       </motion.div>
 
-      <motion.div
-        style={brandsSectionStyle}
-        variants={slideInFromLeft}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        <Container>
-          <motion.h2 style={sectionHeadingStyle} variants={fadeInUp}>
-            Quality We Trust
-          </motion.h2>
-          <motion.p style={sectionSubheadingStyle} variants={fadeInUp}>
-            To achieve stunning, long-lasting results, we exclusively use
-            industry-leading products known for their exceptional quality and
-            performance.
-          </motion.p>
-          <Row className="justify-content-center align-items-start gy-5 gy-lg-0">
-            {/* DÜZELTİLMİŞ WELLA KARTI */}
-            <Col
-              xs={12}
-              sm={6}
-              lg={5}
-              className="d-flex justify-content-center"
-            >
-              <motion.div style={brandCardStyle} variants={fadeInUp}>
-                <motion.div
-                  style={brandLogoWrapperStyle}
-                  whileHover={brandLogoWrapperHover}
-                >
-                  <img
-                    src={WellaLogo}
-                    alt="Wella Professionals Logo"
-                    style={brandLogoStyle}
-                  />
-                </motion.div>
-                <h3 style={brandNameStyle}>Wella Professionals</h3>
-                <p style={brandDescriptionStyle}>
-                  Vibrant, rich colors that provide excellent coverage and a
-                  brilliant, healthy shine for your hair.
-                </p>
-              </motion.div>
-            </Col>
-            {/* DÜZELTİLMİŞ IGORA KARTI */}
-            <Col
-              xs={12}
-              sm={6}
-              lg={5}
-              className="d-flex justify-content-center"
-            >
-              <motion.div style={brandCardStyle} variants={fadeInUp}>
-                <motion.div
-                  style={brandLogoWrapperStyle}
-                  whileHover={brandLogoWrapperHover}
-                >
-                  <img
-                    src={IgoraLogo}
-                    alt="Igora Royal Hair Dye Logo"
-                    style={brandLogoStyle}
-                  />
-                </motion.div>
-                <h3 style={brandNameStyle}>Igora Royal</h3>
-                <p style={brandDescriptionStyle}>
-                  The choice of professionals for absolute color fidelity,
-                  intensity, and flawless results every time.
-                </p>
-              </motion.div>
-            </Col>
-            {/* MEVCUT KARTLAR (DOĞRUYDU) */}
-            <Col
-              xs={12}
-              sm={6}
-              lg={5}
-              className="d-flex justify-content-center mt-5 mt-lg-0"
-            >
-              <motion.div style={brandCardStyle} variants={fadeInUp}>
-                <motion.div
-                  style={brandLogoWrapperStyle}
-                  whileHover={brandLogoWrapperHover}
-                >
-                  <img
-                    src={Prod22}
-                    alt="Blondorplex Logo"
-                    style={brandLogoStyle}
-                  />
-                </motion.div>
-                <h3 style={brandNameStyle}>
-                  Blondorplex – Powerful Lifting with Bond Protection
-                </h3>
-                <p style={brandDescriptionStyle}>
-                  At Shine Beauty NYC, we use Wella Blondorplex to ensure
-                  stunning blonde results with ultimate hair integrity. This
-                  premium lightening powder lifts up to 7 levels while including
-                  a built-in Bond Builder Technology to protect hair structure
-                  during the bleaching process. It’s our go-to for safe,
-                  powerful, and reliable blonding results — perfect for
-                  balayage, highlights, and full blonding services.
-                </p>
-                <ul style={{ textAlign: "left", paddingLeft: "1rem" }}>
-                  <li style={{ color: "#5A7504" }}>
-                    ✓ Strong lift with minimized breakage
-                  </li>
-                  <li style={{ color: "#5A7504" }}>
-                    ✓ Added protection for healthier hair
-                  </li>
-                  <li style={{ color: "#5A7504" }}>
-                    ✓ Ideal for all lightening techniques
-                  </li>
-                </ul>
-              </motion.div>
-            </Col>
-            <Col
-              xs={12}
-              sm={6}
-              lg={5}
-              className="d-flex justify-content-center mt-5 mt-lg-0"
-            >
-              <motion.div style={brandCardStyle} variants={fadeInUp}>
-                <motion.div
-                  style={brandLogoWrapperStyle}
-                  whileHover={brandLogoWrapperHover}
-                >
-                  <img
-                    src={Prod44}
-                    alt="BLONDME 9+ Logo"
-                    style={brandLogoStyle}
-                  />
-                </motion.div>
-                <h3 style={brandNameStyle}>
-                  BLONDME 9+ – The Ultimate Blonde Power
-                </h3>
-                <p style={brandDescriptionStyle}>
-                  We trust Schwarzkopf BLONDME 9+ for those who demand the
-                  brightest blonde with superior care. Offering up to 9 levels
-                  of lift, this high-performance lightener neutralizes warm
-                  tones and is infused with Integrated Bonding Technology to
-                  maintain hair strength. Whether you’re going icy platinum or
-                  soft caramel, it delivers consistent, even results every time.
-                </p>
-                <ul style={{ textAlign: "left", paddingLeft: "1rem" }}>
-                  <li style={{ color: "#5A7504" }}>
-                    ✓ Up to 9 levels of clean lift
-                  </li>
-                  <li style={{ color: "#5A7504" }}>
-                    ✓ Strengthens hair during lightening
-                  </li>
-                  <li style={{ color: "#5A7504" }}>
-                    ✓ Advanced neutralization for flawless blonde tones
-                  </li>
-                </ul>
-              </motion.div>
-            </Col>
-          </Row>
-        </Container>
-      </motion.div>
+      {/* "Quality We Trust" BÖLÜMÜ TAMAMEN KALDIRILDI */}
 
       <Services />
     </div>
