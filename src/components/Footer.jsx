@@ -194,7 +194,7 @@ const Footer = () => {
                     transition: { duration: 0.3 },
                   }}
                 >
-                  Made by ReconceptX
+                  Create by ReconceptX
                 </motion.a>
               </div>
               {/* --- DEĞİŞİKLİK BİTTİ --- */}

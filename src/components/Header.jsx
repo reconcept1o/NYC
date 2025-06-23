@@ -6,10 +6,13 @@ import BookButton from "../pages/BookButton";
 
 import LeafIcon from "../assets/leaf101.png";
 
+// --- DEĞİŞİKLİK BURADA ---
+// Yeni link diziye eklendi.
 const navLinks = [
   { name: "About", path: "/about" },
   { name: "Services", path: "/services" },
   { name: "Gallery", path: "/gallery" },
+  { name: "Products & Certs", path: "/prodandcert" }, // YENİ LİNK
   { name: "Contact", path: "/contact" },
 ];
 
@@ -40,7 +43,7 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
-  // --- Animasyon Varyantları ---
+  // Animasyon Varyantları ve Stiller (Değişiklik yok)
   const brandContainerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -48,7 +51,6 @@ const Header = () => {
       transition: { staggerChildren: 0.05, delayChildren: 0.2 },
     },
   };
-
   const letterVariants = {
     hidden: { opacity: 0, y: -50, rotate: -10 },
     visible: {
@@ -58,19 +60,15 @@ const Header = () => {
       transition: { type: "spring", damping: 12, stiffness: 200 },
     },
   };
-
   const leafVariant = {
     hidden: { opacity: 0, scale: 0.5, rotate: -90 },
     visible: {
       opacity: 1,
       scale: 1,
-      // DEĞİŞİKLİK: Yeni pozitif rotasyonla uyumlu hale getirildi.
       rotate: 15,
       transition: { type: "spring", damping: 12, stiffness: 100, delay: 0.7 },
     },
   };
-
-  // --- Stiller ---
   const navbarStyle = {
     background: "#ffffff",
     height: "80px",
@@ -82,35 +80,27 @@ const Header = () => {
     width: "100%",
     zIndex: 1000,
   };
-
   const brandContainerStyle = {
-    // DEĞİŞİKLİK 1: Mutlak konumlandırılmış yaprak için referans noktası oluşturuyoruz.
     position: "relative",
     display: "flex",
     alignItems: "center",
-    // Yaprağın sığması için sağ tarafa boşluk ekliyoruz.
     paddingRight: isMobile ? "1.8rem" : "2.8rem",
   };
-
   const brandTextStyle = {
     color: "#5A7504",
     fontSize: isMobile ? "1.6rem" : "2.2rem",
     fontWeight: 900,
     display: "inline-block",
   };
-
   const leafStyle = {
-    // DEĞİŞİKLİK 2: Yaprağı mutlak konumlandırıyoruz.
     position: "absolute",
-    top: isMobile ? "-6px" : "-10px", // Container'ın üstünden ne kadar yukarıda olacağı
-    right: -38, // Container'ın sağına hizala
+    top: isMobile ? "-6px" : "-10px",
+    right: -38,
     height: isMobile ? "2.5rem" : "3.3rem",
     width: "auto",
-    // Rotasyonu daha yukarı dönük bir his için pozitife çevirdik.
     transform: "rotate(15deg)",
-    marginLeft: 0, // Artık gerekli değil
+    marginLeft: 0,
   };
-
   const navLinkStyle = {
     position: "relative",
     padding: "0.5rem 1rem",
@@ -119,6 +109,7 @@ const Header = () => {
     fontSize: "1.2rem",
     transition: "color 0.3s ease",
   };
+  // --- Bitiş: Animasyon ve Stiller ---
 
   const bookingUrl =
     "https://www.fresha.com/a/shine-beauty-nyc-new-york-315-west-57th-street-nyfwijkc/booking";
@@ -135,8 +126,6 @@ const Header = () => {
     >
       <Container>
         <Navbar.Brand as={NavLink} to="/">
-          {" "}
-          {/* paddingRight buradan kaldırıldı */}
           <motion.div
             initial="hidden"
             animate="visible"
@@ -152,7 +141,6 @@ const Header = () => {
                 {letter}
               </motion.span>
             ))}
-            {/* Yaprak hala aynı yerde, ama stilleri onu farklı konumlandıracak */}
             <motion.img
               src={LeafIcon}
               alt="Shine Beauty NYC Leaf"
