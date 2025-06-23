@@ -9,6 +9,8 @@ import Salon2 from "../assets/1.jpg";
 import AdvertiseImg from "../assets/advertise.jpg";
 import WellaLogo from "../assets/wella.png";
 import IgoraLogo from "../assets/igora.png";
+import Prod22 from "../assets/prod22.png"; // Yeni resim import
+import Prod44 from "../assets/prod44.png"; // Yeni resim import
 import BookButton from "./BookButton"; // Import the new component
 
 import Services from "./Services";
@@ -40,7 +42,6 @@ const Home = () => {
 
   // --- SEO Configuration ---
   const siteUrl = "https://www.yourshinebeautynyc.com"; // IMPORTANT: Replace with your actual domain
-  // Assuming 'Logo' import resolves to a public path like '/static/media/logo22.hash.png'
   const ogImageUrl = `${siteUrl}${Logo}`;
 
   // --- ANİMASYON VARYANTLARI ---
@@ -243,8 +244,8 @@ const Home = () => {
   };
 
   const brandLogoStyle = {
-    maxWidth: "100px",
-    height: "auto",
+    maxWidth: "120px", // Resimleri biraz büyütmek için 100px'den 120px'e artırıldı
+    height: "auto", // Oran korunuyor
   };
 
   const brandNameStyle = {
@@ -334,23 +335,11 @@ const Home = () => {
           content="Discover personalized hair treatments, expert coloring, and a luxurious salon experience at Shine Beauty NYC. Book now!"
         />
         <meta name="twitter:image" content={ogImageUrl} />
-        {/* Optional: If you have a Twitter handle for the site or creator
-        <meta name="twitter:site" content="@YourTwitterSiteHandle" />
-        <meta name="twitter:creator" content="@YourTwitterCreatorHandle" />
-        */}
 
         {/* --- Standard Meta Tags --- */}
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta httpEquiv="Content-Language" content="en" />
-
-        {/* --- Favicon Lins (example - update paths to your actual favicons) --- */}
-        {/*
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/site.webmanifest" />
-        */}
       </Helmet>
 
       <InfoStrip />
@@ -574,6 +563,88 @@ const Home = () => {
                   The choice of professionals for absolute color fidelity,
                   intensity, and flawless results every time.
                 </p>
+              </motion.div>
+            </Col>
+            <Col
+              md={6}
+              lg={5}
+              className="d-flex justify-content-center mt-5 mt-md-0"
+            >
+              <motion.div style={brandCardStyle} variants={fadeInUp}>
+                <motion.div
+                  style={brandLogoWrapperStyle}
+                  whileHover={brandLogoWrapperHover}
+                >
+                  <img
+                    src={Prod22}
+                    alt="Blondorplex Logo"
+                    style={brandLogoStyle}
+                  />
+                </motion.div>
+                <h3 style={brandNameStyle}>
+                  Blondorplex – Powerful Lifting with Bond Protection
+                </h3>
+                <p style={brandDescriptionStyle}>
+                  At Shine Beauty NYC, we use Wella Blondorplex to ensure
+                  stunning blonde results with ultimate hair integrity. This
+                  premium lightening powder lifts up to 7 levels while including
+                  a built-in Bond Builder Technology to protect hair structure
+                  during the bleaching process. It’s our go-to for safe,
+                  powerful, and reliable blonding results — perfect for
+                  balayage, highlights, and full blonding services.
+                </p>
+                <ul style={{ textAlign: "left", paddingLeft: "1rem" }}>
+                  <li style={{ color: "#5A7504" }}>
+                    ✓ Strong lift with minimized breakage
+                  </li>
+                  <li style={{ color: "#5A7504" }}>
+                    ✓ Added protection for healthier hair
+                  </li>
+                  <li style={{ color: "#5A7504" }}>
+                    ✓ Ideal for all lightening techniques
+                  </li>
+                </ul>
+              </motion.div>
+            </Col>
+            <Col
+              md={6}
+              lg={5}
+              className="d-flex justify-content-center mt-5 mt-md-0"
+            >
+              <motion.div style={brandCardStyle} variants={fadeInUp}>
+                <motion.div
+                  style={brandLogoWrapperStyle}
+                  whileHover={brandLogoWrapperHover}
+                >
+                  <img
+                    src={Prod44}
+                    alt="BLONDME 9+ Logo"
+                    style={brandLogoStyle}
+                  />
+                </motion.div>
+                <h3 style={brandNameStyle}>
+                  BLONDME 9+ – The Ultimate Blonde Power
+                </h3>
+<br/>
+                <p style={brandDescriptionStyle}>
+                  We trust Schwarzkopf BLONDME 9+ for those who demand the
+                  brightest blonde with superior care. Offering up to 9 levels
+                  of lift, this high-performance lightener neutralizes warm
+                  tones and is infused with Integrated Bonding Technology to
+                  maintain hair strength. Whether you’re going icy platinum or
+                  soft caramel, it delivers consistent, even results every time.
+                </p>
+                <ul style={{ textAlign: "left", paddingLeft: "1rem" }}>
+                  <li style={{ color: "#5A7504" }}>
+                    ✓ Up to 9 levels of clean lift
+                  </li>
+                  <li style={{ color: "#5A7504" }}>
+                    ✓ Strengthens hair during lightening
+                  </li>
+                  <li style={{ color: "#5A7504" }}>
+                    ✓ Advanced neutralization for flawless blonde tones
+                  </li>
+                </ul>
               </motion.div>
             </Col>
           </Row>

@@ -11,6 +11,8 @@ import { FaPaintBrush } from "react-icons/fa";
 // Brand logos
 import WellaLogo from "../assets/wella.png"; // Used for OG image or site logo
 import IgoraLogo from "../assets/igora.png";
+import Prod22 from "../assets/prod22.png"; // Yeni resim import
+import Prod44 from "../assets/prod44.png"; // Yeni resim import
 // You might want a general services page image for OG
 // import ServicesPageImage from "../assets/services_banner.jpg"; // Example
 
@@ -202,7 +204,7 @@ const Services = () => {
   };
 
   const brandLogoStyle = {
-    maxWidth: "90px",
+    maxWidth: "120px", // Resimleri büyütmek için 90px'den 120px'e artırıldı
     height: "auto",
   };
 
@@ -446,6 +448,87 @@ const Services = () => {
                         The choice of professionals for absolute color fidelity,
                         intensity, and flawless results.
                       </p>
+                    </motion.div>
+                  </Col>
+                  <Col
+                    md={6}
+                    className="d-flex justify-content-center mt-5 mt-md-0"
+                  >
+                    <motion.div style={brandCardStyle} variants={fadeInUp}>
+                      <motion.div
+                        style={brandLogoWrapperStyle}
+                        whileHover={brandLogoWrapperHover}
+                      >
+                        <img
+                          src={Prod22}
+                          alt="Blondorplex Logo"
+                          style={brandLogoStyle}
+                        />
+                      </motion.div>
+                      <h3 style={brandNameStyle}>
+                        Blondorplex – Powerful Lifting with Bond Protection
+                      </h3>
+                      <p style={brandDescriptionStyle}>
+                        At Shine Beauty NYC, we use Wella Blondorplex to ensure
+                        stunning blonde results with ultimate hair integrity.
+                        This premium lightening powder lifts up to 7 levels
+                        while including a built-in Bond Builder Technology to
+                        protect hair structure during the bleaching process.
+                        It’s our go-to for safe, powerful, and reliable blonding
+                        results — perfect for balayage, highlights, and full
+                        blonding services.
+                      </p>
+                      <ul style={{ textAlign: "left", paddingLeft: "1rem" }}>
+                        <li style={{ color: "#5A7504" }}>
+                          ✓ Strong lift with minimized breakage
+                        </li>
+                        <li style={{ color: "#5A7504" }}>
+                          ✓ Added protection for healthier hair
+                        </li>
+                        <li style={{ color: "#5A7504" }}>
+                          ✓ Ideal for all lightening techniques
+                        </li>
+                      </ul>
+                    </motion.div>
+                  </Col>
+                  <Col
+                    md={6}
+                    className="d-flex justify-content-center mt-5 mt-md-0"
+                  >
+                    <motion.div style={brandCardStyle} variants={fadeInUp}>
+                      <motion.div
+                        style={brandLogoWrapperStyle}
+                        whileHover={brandLogoWrapperHover}
+                      >
+                        <img
+                          src={Prod44}
+                          alt="BLONDME 9+ Logo"
+                          style={brandLogoStyle}
+                        />
+                      </motion.div>
+                      <h3 style={brandNameStyle}>
+                        BLONDME 9+ – The Ultimate Blonde Power
+                      </h3>
+                      <p style={brandDescriptionStyle}>
+                        We trust Schwarzkopf BLONDME 9+ for those who demand the
+                        brightest blonde with superior care. Offering up to 9
+                        levels of lift, this high-performance lightener
+                        neutralizes warm tones and is infused with Integrated
+                        Bonding Technology to maintain hair strength. Whether
+                        you’re going icy platinum or soft caramel, it delivers
+                        consistent, even results every time.
+                      </p>
+                      <ul style={{ textAlign: "left", paddingLeft: "1rem" }}>
+                        <li style={{ color: "#5A7504" }}>
+                          ✓ Up to 9 levels of clean lift
+                        </li>
+                        <li style={{ color: "#5A7504" }}>
+                          ✓ Strengthens hair during lightening
+                        </li>
+                        <li style={{ color: "#5A7504" }}>
+                          ✓ Advanced neutralization for flawless blonde tones
+                        </li>
+                      </ul>
                     </motion.div>
                   </Col>
                 </Row>
