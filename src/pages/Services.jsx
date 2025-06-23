@@ -12,7 +12,7 @@ import { FaPaintBrush } from "react-icons/fa";
 import WellaLogo from "../assets/wella.png"; // Used for OG image or site logo
 import IgoraLogo from "../assets/igora.png";
 import Prod22 from "../assets/prod22.webp"; // Yeni resim import
-import Prod44 from "../assets/prod66.webp"; // Yeni resim import
+import Prod44 from "../assets/prod44.webp"; // Yeni resim import
 // You might want a general services page image for OG
 // import ServicesPageImage from "../assets/services_banner.jpg"; // Example
 
