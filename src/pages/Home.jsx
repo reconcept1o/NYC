@@ -527,7 +527,14 @@ const Home = () => {
             performance.
           </motion.p>
           <Row className="justify-content-center align-items-start gy-5 gy-lg-0">
-            <Col md={6} lg={5} className="d-flex justify-content-center">
+            <Col
+              xs={12}
+              sm={6}
+              lg={5}
+              className="d-flex justify-content-center"
+            >
+              {" "}
+              {/* Mobil için xs=12 eklendi */}
               <motion.div style={brandCardStyle} variants={fadeInUp}>
                 <motion.div
                   style={brandLogoWrapperStyle}
@@ -546,7 +553,14 @@ const Home = () => {
                 </p>
               </motion.div>
             </Col>
-            <Col md={6} lg={5} className="d-flex justify-content-center">
+            <Col
+              xs={12}
+              sm={6}
+              lg={5}
+              className="d-flex justify-content-center"
+            >
+              {" "}
+              {/* Mobil için xs=12 eklendi */}
               <motion.div style={brandCardStyle} variants={fadeInUp}>
                 <motion.div
                   style={brandLogoWrapperStyle}
@@ -566,7 +580,8 @@ const Home = () => {
               </motion.div>
             </Col>
             <Col
-              md={6}
+              xs={12}
+              sm={6}
               lg={5}
               className="d-flex justify-content-center mt-5 mt-md-0"
             >
@@ -607,7 +622,8 @@ const Home = () => {
               </motion.div>
             </Col>
             <Col
-              md={6}
+              xs={12}
+              sm={6}
               lg={5}
               className="d-flex justify-content-center mt-5 mt-md-0"
             >
@@ -625,7 +641,6 @@ const Home = () => {
                 <h3 style={brandNameStyle}>
                   BLONDME 9+ – The Ultimate Blonde Power
                 </h3>
-<br/>
                 <p style={brandDescriptionStyle}>
                   We trust Schwarzkopf BLONDME 9+ for those who demand the
                   brightest blonde with superior care. Offering up to 9 levels
